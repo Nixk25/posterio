@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import NavbarSearch from "@/components/NavbarSearch/NavbarSearch";
+import SearchBar from "@/components/FilterSidebar/SearchBar";
+import NavbarServer from "@/components/NavbarServer/NavbarSearch";
 
 const ClashGroteskFont = localFont({
   src: "./fonts/ClashGrotesk-Variable.woff2",
@@ -21,7 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` ${ClashGroteskFont.className} antialiased`}>
-        <NavbarSearch />
+        <NavbarServer />
+        <SearchBar />
         {children}
       </body>
     </html>

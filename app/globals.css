@@ -2,8 +2,6 @@
 
 @plugin "tailwindcss-animate";
 
-@custom-variant dark (&:is(.dark *));
-
 * {
   box-sizing: border-box;
   text-transform: uppercase;
@@ -24,7 +22,6 @@
 body {
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
   accent-color: var(--accent);
   caret-color: var(--accent);
 }
@@ -32,4 +29,20 @@ body {
 ::selection {
   background-color: var(--accent);
   color: #000;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+* {
+  scrollbar-color: var(--accent);
 }
