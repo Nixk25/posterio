@@ -7,7 +7,7 @@ const FilterButton = ({
 }) => {
   return (
     <div
-      className="p-4 relative z-5 border-t-0 border-b-0 border hover:bg-accent transition-all duration-300 w-max cursor-pointer "
+      className="p-[4px] sm:p-[2px] bg-background relative z-5 border-t-0  border border-r-0 hover:bg-accent transition-all duration-300 w-max cursor-pointer "
       onClick={() => setShowFilters((prev) => !prev)}
     >
       <ListFilter />

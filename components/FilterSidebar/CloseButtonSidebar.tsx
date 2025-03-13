@@ -9,7 +9,7 @@ const CloseButtonSidebar = ({
   return (
     <button
       onClick={() => setShowFilters(false)}
-      className="absolute top-2 right-2 cursor-pointer"
+      className="absolute top-2 left-2 cursor-pointer"
     >
       <X />
     </button>

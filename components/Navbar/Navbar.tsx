@@ -7,7 +7,7 @@ import { AlignJustify } from "lucide-react";
 const Navbar = () => {
   return (
     <header className="w-full p-2 border-t-0 border relative">
-      <nav className="flex px-4 justify-between items-center">
+      <nav className="flex sm:px-4 justify-between items-center">
         <AlignJustify className="flex sm:hidden cursor-pointer" size={20} />
         <ul className="sm:flex items-center gap-4 hidden ">
           {NAVBAR_LINKS.map((link) => (

@@ -3,11 +3,15 @@ import React, { useState } from "react";
 import { AnimatePresence } from "motion/react";
 import FilterButton from "./FilterButton";
 import FilterSidebarContent from "./FilterSidebarContent";
+import { usePathname } from "next/navigation";
+
 const FiltersSidebar = () => {
   const [showFilters, setShowFilters] = useState(false);
+  const pathname = usePathname();
+  if (pathname === "/login" || pathname === "/register") return null;
 
   return (
-    <div className=" h-full ">
+    <div className="h-full">
       <AnimatePresence>
         <FilterButton setShowFilters={setShowFilters} />
       </AnimatePresence>

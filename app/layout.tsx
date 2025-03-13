@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import SearchBar from "@/components/FilterSidebar/SearchBar";
-import NavbarServer from "@/components/NavbarServer/NavbarSearch";
+import NavbarServer from "@/components/Navbar/NavbarServer";
+import Footer from "@/components/Footer/Footer";
 
 const ClashGroteskFont = localFont({
   src: "./fonts/ClashGrotesk-Variable.woff2",
@@ -25,6 +26,7 @@ export default function RootLayout({
         <NavbarServer />
         <SearchBar />
         {children}
+        <Footer />
       </body>
     </html>
   );

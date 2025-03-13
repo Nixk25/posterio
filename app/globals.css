@@ -5,6 +5,7 @@
 * {
   box-sizing: border-box;
   text-transform: uppercase;
+  scrollbar-color: var(--accent);
 }
 
 :root {
@@ -43,6 +44,6 @@ body {
   background: var(--accent);
 }
 
-* {
-  scrollbar-color: var(--accent);
+.normalText {
+  text-transform: none;
 }
