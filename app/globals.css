@@ -25,6 +25,7 @@ body {
   height: 100%;
   accent-color: var(--accent);
   caret-color: var(--accent);
+  overscroll-behavior-y: none;
 }
 
 ::selection {

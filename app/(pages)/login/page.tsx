@@ -1,13 +1,14 @@
-import LoginBlock from "@/components/Login/LoginBlock";
-import BigTextEffect from "@/components/Login/BigTextEffect";
-import React from "react";
+import MainLoginClient from "@/components/Login/MainLoginClient";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Posterio | Login",
+  description:
+    "Login to your account to access your profile and start creating your posters.",
+};
+
 const Login = () => {
-  return (
-    <div className="flex min-h-screen relative  border border-t-0 border-b-0 items-center flex-col">
-      <BigTextEffect direction={1} headline="Login" />
-      <LoginBlock nameInput="johndoe@gmail.com" name="Email address" />
-    </div>
-  );
+  return <MainLoginClient />;
 };
 
 export default Login;

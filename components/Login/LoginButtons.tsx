@@ -1,21 +1,24 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
+import { Step } from "./LoginBlock";
 
 const LoginButtons = ({
   step,
   backStep,
-  nextStep,
+  steps,
   isLogin,
 }: {
   step: number;
   backStep: () => void;
   nextStep: () => void;
+  steps: Step[];
   isLogin: boolean;
 }) => {
   return (
     <div className="flex w-full gap-5">
       {step >= 1 && (
         <button
+          type="button"
           onClick={backStep}
           className="bg-accent py-4 w-full border cursor-pointer"
         >
@@ -26,12 +29,16 @@ const LoginButtons = ({
         </button>
       )}
       <button
-        onClick={nextStep}
+        type="submit"
         className="bg-accent py-4 w-full border cursor-pointer"
       >
         <div className="flex gap-1 items-center justify-center">
-          {isLogin ? "Log me in" : "Next"}
-          {!isLogin && <ChevronRight size={20} />}
+          {steps && steps.length > 0 && step === steps.length - 1
+            ? isLogin
+              ? "Log me in"
+              : "Create new account"
+            : "Next"}
+          <ChevronRight size={20} />
         </div>
       </button>
     </div>

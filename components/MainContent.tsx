@@ -19,6 +19,10 @@ const MainContent = () => {
         <h3 className="px-2">Starry Night</h3>
         <div className="bg-gray-800 h-full w-full" />
       </div>
+      <div className="flex flex-col h-[600px] w-[300px] border ">
+        <h3 className="px-2">Starry Night</h3>
+        <div className="bg-gray-800 h-full w-full" />
+      </div>
     </div>
   );
 };

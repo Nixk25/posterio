@@ -6,10 +6,18 @@ const InputBoosted = ({
   name,
   icon,
   isUppercase = true,
+  type = "text",
+  value,
+  onChange,
+  step,
 }: {
   name: string;
   icon?: React.ReactNode;
   isUppercase?: boolean;
+  type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  step?: number;
 }) => {
   const [isTextInSearch, setIsTextInSearch] = useState("");
 
@@ -22,6 +30,15 @@ const InputBoosted = ({
       inputRef.current.focus();
     }
   };
+  useEffect(() => {
+    if (value) {
+      setIsSearchActive(true);
+      setIsTextInSearch(value);
+    } else {
+      setIsSearchActive(false);
+      setIsTextInSearch("");
+    }
+  }, [value, step]);
 
   useEffect(() => {
     if (isSearchActive && inputRef.current) {
@@ -54,9 +71,11 @@ const InputBoosted = ({
       <div className="relative flex h-full w-full items-center   gap-2">
         {icon && <div onClick={handleSearchClick}>{icon}</div>}
         <Input
+          required
+          type={type}
           ref={inputRef}
-          value={isTextInSearch}
-          onChange={(e) => setIsTextInSearch(e.target.value)}
+          value={value}
+          onChange={onChange}
           onFocus={() => setIsSearchActive(true)}
           onBlur={() => setIsSearchActive(false)}
           className={`relative z-4 shadow-none ring-0   border-0 bg-transparent ${

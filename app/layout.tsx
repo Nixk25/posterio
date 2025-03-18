@@ -4,7 +4,7 @@ import "./globals.css";
 import SearchBar from "@/components/FilterSidebar/SearchBar";
 import NavbarServer from "@/components/Navbar/NavbarServer";
 import Footer from "@/components/Footer/Footer";
-
+import { ViewTransitions } from "next-view-transitions";
 const ClashGroteskFont = localFont({
   src: "./fonts/ClashGrotesk-Variable.woff2",
 });
@@ -21,13 +21,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={` ${ClashGroteskFont.className} antialiased`}>
-        <NavbarServer />
-        <SearchBar />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en">
+        <body className={` ${ClashGroteskFont.className} antialiased`}>
+          <NavbarServer />
+          <SearchBar />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
