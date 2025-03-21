@@ -42,7 +42,7 @@ const FilterSidebarContent = ({
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: "-100%", opacity: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-background border border-t-0  absolute top-0 left-0  z-25 flex justify-evenly gap-5 w-full overflow-auto "
+      className="bg-background  border-b  absolute top-0 left-0  z-25 flex justify-evenly gap-5 w-full overflow-auto "
     >
       <CloseButtonSidebar setShowFilters={setShowFilters} />
       {Filters.map((filter) => (

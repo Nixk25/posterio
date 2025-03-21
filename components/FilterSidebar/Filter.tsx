@@ -13,7 +13,10 @@ type FilterProps = {
 };
 const Filter = ({ filter }: FilterProps) => {
   return (
-    <div key={filter.key} className=" pt-9 pb-5 px-5 border-r w-full">
+    <div
+      key={filter.key}
+      className=" pt-9 pb-5 px-5 last:border-r-0 border-r w-full"
+    >
       <h3 className="font-semibold text-lg mb-2">{filter.title}</h3>
       <div className="space-y-2 w-max">
         {filter.options.map((option) => (

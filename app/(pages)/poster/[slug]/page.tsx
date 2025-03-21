@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client";
+import { useParams } from "next/navigation";
 import React from "react";
 
 const posters = [
@@ -13,21 +14,21 @@ const posters = [
   { title: "The Night Watch", bg: "bg-yellow-500" },
 ];
 
-const MainContent = () => {
+const Poster = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const index = parseInt(slug);
+  const poster = posters[index];
+
+  if (!poster) {
+    return <h1 className="p-8 text-2xl">Poster not found 🚫</h1>;
+  }
+
   return (
-    <div className="h-full w-full border border-t-0 border-b-0 grid gap-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] p-4 place-items-center">
-      {posters.map((poster, index) => (
-        <Link
-          href={`/poster/${index}`}
-          key={index}
-          className="flex flex-col h-[600px] w-[300px] border shadow"
-        >
-          <h3 className="px-2 py-1 text-lg font-semibold">{poster.title}</h3>
-          <div className={`h-full w-full ${poster.bg}`} />
-        </Link>
-      ))}
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-3xl font-bold mb-4">{poster.title}</h1>
+      <div className={`h-[600px] w-[300px] border ${poster.bg}`} />
     </div>
   );
 };
 
-export default MainContent;
+export default Poster;
