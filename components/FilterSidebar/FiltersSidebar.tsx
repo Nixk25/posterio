@@ -8,7 +8,13 @@ import { usePathname } from "next/navigation";
 const FiltersSidebar = () => {
   const [showFilters, setShowFilters] = useState(false);
   const pathname = usePathname();
-  if (pathname === "/login" || pathname === "/register") return null;
+  if (
+    pathname === "/login" ||
+    pathname === "/register" ||
+    pathname === "/profile" ||
+    pathname === "/poster"
+  )
+    return null;
 
   return (
     <div className="h-full">
