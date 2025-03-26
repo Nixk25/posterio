@@ -48,3 +48,10 @@ body {
 .normalText {
   text-transform: none;
 }
+
+.detailHeadline {
+  font-size: clamp(1.5rem, 3vw, 3rem);
+}
+.detailText {
+  font-size: clamp(1rem, 1vw, 2rem);
+}

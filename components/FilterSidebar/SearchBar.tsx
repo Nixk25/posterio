@@ -7,7 +7,7 @@ import { Search } from "lucide-react";
 const SearchBar = () => {
   const [search, setSearch] = useState("");
   return (
-    <form className="sticky top-0   flex justify-between items-center w-full h-full border-l border-r">
+    <form className="sticky top-0 z-99999   flex justify-between items-center w-full h-full border-l border-r">
       <InputBoosted
         value={search}
         onChange={(e) => setSearch(e.target.value)}
