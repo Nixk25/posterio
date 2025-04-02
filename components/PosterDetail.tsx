@@ -1,7 +1,16 @@
 "use client";
 import React from "react";
 import { motion } from "motion/react";
-const PosterDetail = ({ name, detail }: { name: string; detail: string }) => {
+
+const PosterDetail = ({
+  name,
+  detail,
+}: {
+  name: string;
+  detail: string | string[] | React.ReactNode[];
+}) => {
+  const isFlexLayout = name === "Colors" || name === "Tags";
+
   return (
     <motion.div
       initial={{ opacity: 0, filter: "blur(10px)" }}
@@ -10,7 +19,9 @@ const PosterDetail = ({ name, detail }: { name: string; detail: string }) => {
       className="flex flex-col justify-center"
     >
       <span className="font-bold detailHeadline text-3xl">{name}</span>
-      <span className="text-xl detailText">{detail}</span>
+      <div className={`text-xl detailText ${isFlexLayout ? "flex gap-2" : ""}`}>
+        {detail}
+      </div>
     </motion.div>
   );
 };

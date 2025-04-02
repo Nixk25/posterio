@@ -13,6 +13,7 @@ const SearchBar = () => {
         onChange={(e) => setSearch(e.target.value)}
         name="what are you looking for?"
         icon={<Search size={20} className="cursor-pointer" />}
+        bgColor="#D8D9DC"
       />
       <FiltersSidebar />
     </form>

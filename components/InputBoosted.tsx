@@ -10,6 +10,7 @@ const InputBoosted = ({
   value,
   onChange,
   step,
+  bgColor = "#fff",
 }: {
   name: string;
   icon?: React.ReactNode;
@@ -18,6 +19,7 @@ const InputBoosted = ({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   step?: number;
+  bgColor?: string;
 }) => {
   const [isTextInSearch, setIsTextInSearch] = useState("");
 
@@ -32,10 +34,8 @@ const InputBoosted = ({
   };
   useEffect(() => {
     if (value) {
-      setIsSearchActive(true);
       setIsTextInSearch(value);
     } else {
-      setIsSearchActive(false);
       setIsTextInSearch("");
     }
   }, [value, step]);
@@ -64,9 +64,10 @@ const InputBoosted = ({
     <div
       className={`border-b h-full  ${
         icon ? "sm:pl-6" : "sm:pl-2"
-      } pl-2 bg-background w-full overflow-hidden  ${
+      } pl-2 w-full overflow-hidden  ${
         isTextInSearch ? "text-[#000]" : "text-[#818181]"
       } `}
+      style={{ backgroundColor: bgColor }}
     >
       <div className="relative flex h-full w-full items-center   gap-2">
         {icon && <div onClick={handleSearchClick}>{icon}</div>}

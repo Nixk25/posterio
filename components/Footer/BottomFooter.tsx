@@ -4,8 +4,8 @@ import NewsletterFooterSection from "./NewsletterFooterSection";
 
 const BottomFooter = () => {
   return (
-    <div className="flex sm:flex-row flex-col sm:gap-20">
-      <div className="border-t sm:border-t-0">
+    <div className="flex md:flex-row flex-col md:gap-20">
+      <div className="border-t md:border-t-0">
         <FooterLinksGroup
           items={["Shop", "Gallery", "New arrivals", "Best sellers"]}
         />

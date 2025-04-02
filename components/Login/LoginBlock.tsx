@@ -51,6 +51,7 @@ const LoginBlock = ({
           value={value}
           onChange={onChange}
           step={step!}
+          bgColor="#D8D9DC"
         />
       </div>
       <LoginBlockBottom
