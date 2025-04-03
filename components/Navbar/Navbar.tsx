@@ -1,9 +1,13 @@
-"use client";
 import React from "react";
 import { NAVBAR_LINKS } from "@/app/constants";
 import Link from "next/link";
-
-const Navbar = () => {
+import { auth } from "@/auth";
+import { headers } from "next/headers";
+import LogOutButton from "../LogOutButton";
+const Navbar = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   return (
     <header className="w-full p-2 border-t-0 border relative">
       <nav className="flex sm:px-4 justify-between items-center">
@@ -20,12 +24,15 @@ const Navbar = () => {
         >
           POSTERIO
         </Link>
-
-        <Link href="/login">
-          <button className="bg-accent px-4 py-2 border cursor-pointer ">
-            Login
-          </button>
-        </Link>
+        {!session ? (
+          <Link href="/login">
+            <button className="bg-accent px-4 py-2 border cursor-pointer ">
+              Login
+            </button>
+          </Link>
+        ) : (
+          <LogOutButton />
+        )}
       </nav>
     </header>
   );

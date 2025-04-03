@@ -5,6 +5,7 @@ import { UploadDropzone } from "@/app/utils/uploadthing";
 import Image from "next/image";
 import BigTextEffect from "@/components/Login/BigTextEffect";
 import { motion } from "motion/react";
+import { toast } from "sonner";
 type UploadResponse = {
   name: string;
   serverData: { uploadedBy: string };
@@ -71,16 +72,20 @@ const Upload = () => {
           className="mt-4 ut-label:text-black  cursor-pointer border-none uploadButton  ut-label:text-xl text-nowrap w-full ring-0 h-[600px]"
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
-            console.log(res);
+            toast.success("Image uploaded successfully", {
+              description: "Your image has been uploaded successfully.",
+            });
             setPosterImage(res);
           }}
           onUploadError={(error: Error) => {
-            alert(`ERROR! ${error.message}`);
+            toast.error("Something went wrong", {
+              description: `Please try again later. ${error.message}`,
+            });
           }}
           onChange={(acceptedFiles) => {
             console.log(acceptedFiles);
             if (acceptedFiles.length === 0) {
-              alert(
+              toast.warning(
                 "We support only PNG, JPG, and WEBP images and the file size must be under 1MB."
               );
             }
