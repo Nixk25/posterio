@@ -1,5 +1,6 @@
 @import "tailwindcss";
-
+@import "uploadthing/tw/v4";
+@source "../node_modules/@uploadthing/react/dist";
 @plugin "tailwindcss-animate";
 
 * {
@@ -55,4 +56,8 @@ body {
 }
 .detailText {
   font-size: clamp(1rem, 1vw, 2rem);
+}
+
+.uploadButton > *[data-ut-element="button"]::after {
+  background-color: var(--color-accent) !important;
 }

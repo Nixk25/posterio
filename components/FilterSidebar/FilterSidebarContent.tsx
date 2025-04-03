@@ -38,11 +38,11 @@ const FilterSidebarContent = ({
   return (
     <motion.div
       ref={sidebarRef}
-      initial={{ y: "-100%", opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: "-100%", opacity: 0 }}
+      initial={{ y: "-100%", opacity: 0, filter: "blur(10px)" }}
+      animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+      exit={{ y: "-100%", opacity: 0, filter: "blur(10px)" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-background  border-b  absolute top-0 left-0  z-99999 flex justify-evenly gap-5 w-full overflow-auto "
+      className="bg-background  border  absolute top-7 left-0  z-99999 flex justify-evenly gap-5 w-full overflow-auto "
     >
       <CloseButtonSidebar setShowFilters={setShowFilters} />
       {Filters.map((filter) => (

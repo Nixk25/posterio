@@ -1,8 +1,6 @@
-"use client";
 import BigTextEffect from "@/components/Login/BigTextEffect";
 import DetailLeft from "@/components/PosterDetail/DetailLeft";
 import DetailRight from "@/components/PosterDetail/DetailRight";
-import { useParams } from "next/navigation";
 import React from "react";
 
 const posters = [
@@ -104,8 +102,8 @@ const posters = [
   },
 ];
 
-const Poster = () => {
-  const { slug } = useParams<{ slug: string }>();
+const Poster = async ({ params }: { params: { slug: string } }) => {
+  const { slug } = await params;
   const index = parseInt(slug);
   const poster = posters[index];
 
