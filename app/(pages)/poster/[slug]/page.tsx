@@ -102,7 +102,10 @@ const posters = [
   },
 ];
 
-const Poster = ({ params }: { params: { slug: string } }) => {
+type PosterProps = {
+  params: { slug: string };
+};
+const Poster: React.FC<PosterProps> = ({ params }) => {
   const { slug } = params;
   const index = parseInt(slug);
   const poster = posters[index];
