@@ -102,8 +102,8 @@ const posters = [
   },
 ];
 
-const Poster = async ({ params }: { params: { slug: string } }) => {
-  const { slug } = await params;
+const Poster = ({ params }: { params: { slug: string } }) => {
+  const { slug } = params;
   const index = parseInt(slug);
   const poster = posters[index];
 
