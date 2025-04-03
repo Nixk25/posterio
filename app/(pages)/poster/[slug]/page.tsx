@@ -102,11 +102,8 @@ const posters = [
   },
 ];
 
-type PosterProps = {
-  params: { slug: string };
-};
-const Poster: React.FC<PosterProps> = ({ params }) => {
-  const { slug } = params;
+const Poster = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
   const index = parseInt(slug);
   const poster = posters[index];
 
