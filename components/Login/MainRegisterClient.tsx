@@ -65,7 +65,6 @@ const MainRegisterClient = () => {
   };
 
   const handleRegistration = async () => {
-    console.log(formData);
     await authClient.signUp.email(
       {
         email: formData.email,
@@ -80,9 +79,8 @@ const MainRegisterClient = () => {
           });
         },
         onError: (ctx) => {
-          console.log("Error:", ctx);
           toast.error("Something went wrong", {
-            description: "Please try again later.",
+            description: `${ctx.error}`,
           });
         },
       }

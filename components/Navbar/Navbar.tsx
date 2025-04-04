@@ -3,7 +3,8 @@ import { NAVBAR_LINKS } from "@/app/constants";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { headers } from "next/headers";
-import LogOutButton from "../LogOutButton";
+import LogOutButton from "./LogOutButton";
+import { Plus } from "lucide-react";
 const Navbar = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -31,7 +32,16 @@ const Navbar = async () => {
             </button>
           </Link>
         ) : (
-          <LogOutButton />
+          <div className="flex items-center justify-center gap-5">
+            <Link href="/upload" className="relative">
+              <div className="size-10 bg-accent rounded-full" />
+              <Plus
+                size={30}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-black"
+              />
+            </Link>
+            <LogOutButton />
+          </div>
         )}
       </nav>
     </header>

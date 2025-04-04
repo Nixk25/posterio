@@ -28,6 +28,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  posters       Poster[]  
 }
 
 model Session {
@@ -68,4 +69,45 @@ model Verification {
   expiresAt  DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model Poster {
+  id          String        @id @default(cuid()) @map("_id")
+  title       String
+  description String?
+  fonts       String[]      
+  colors      String[]      
+  tools       String[]      
+  views       Int           @default(0)  
+  socials     String[]      
+  imgUrl      String       
+
+  categoryIds String[]      
+  userId      String        
+
+  createdAt   DateTime      @default(now())  
+  updatedAt   DateTime      @updatedAt
+
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  posterCategories PosterCategory[] 
+}
+
+model Category {
+  id          String          @id @default(cuid()) @map("_id")
+  name        String          @unique
+  description String?
+
+  posters     PosterCategory[]  
+}
+
+model PosterCategory {
+  id          String    @id @default(cuid()) @map("_id")  
+  posterId    String
+  categoryId  String
+
+  poster      Poster    @relation(fields: [posterId], references: [id], onDelete: Cascade)
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  
+  @@unique([posterId, categoryId])
 }

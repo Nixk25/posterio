@@ -3,7 +3,9 @@ import LoginBlock from "@/components/Login/LoginBlock";
 import BigTextEffect from "@/components/Login/BigTextEffect";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { authClient } from "@/auth-client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const steps = [
   {
     headline: "Login",
@@ -22,6 +24,7 @@ const steps = [
 ];
 
 const MainLoginClient = () => {
+  const router = useRouter();
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
   const [formData, setFormData] = useState({
@@ -36,7 +39,7 @@ const MainLoginClient = () => {
         setStep((prev) => prev + 1);
       }, 50);
     } else {
-      console.log("Form data submitted:", formData);
+      handleLogin();
     }
   };
 
@@ -49,13 +52,34 @@ const MainLoginClient = () => {
     }
   };
 
-  const handleSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
+  const OnSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     nextStep();
   };
+
+  const handleLogin = async () => {
+    console.log(formData);
+    await authClient.signIn.email(
+      {
+        email: formData.email,
+        password: formData.password,
+      },
+      {
+        onSuccess: () => {
+          router.push("/");
+          router.refresh();
+        },
+        onError: (ctx) => {
+          toast.error("Something went wrong", {
+            description: `${ctx.error}`,
+          });
+        },
+      }
+    );
+  };
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={OnSubmit}
       className="flex min-h-screen relative border border-t-0 border-b-0 items-center flex-col overflow-hidden"
     >
       <AnimatePresence mode="wait" custom={direction}>

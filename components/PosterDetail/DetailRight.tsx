@@ -1,6 +1,6 @@
 import React from "react";
-import PosterDetail from "../PosterDetail";
-import { PosterProps } from "../ColorsSection";
+import PosterDetail from "./PosterDetail";
+import { PosterProps } from "./ColorsSection";
 import { Facebook, Instagram } from "lucide-react";
 
 const DetailRight: React.FC<PosterProps> = ({ poster }) => {

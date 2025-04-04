@@ -25,7 +25,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en">
         <body className={` ${ClashGroteskFont.className} antialiased`}>
-          <Toaster />
+          <Toaster richColors />
           <NavbarServer />
           <SearchBar />
           {children}

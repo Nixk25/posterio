@@ -1,6 +1,6 @@
 import React from "react";
-import PosterDetail from "../PosterDetail";
-import ColorsSection, { PosterProps } from "../ColorsSection";
+import PosterDetail from "./PosterDetail";
+import ColorsSection, { PosterProps } from "./ColorsSection";
 
 const DetailLeft: React.FC<PosterProps> = ({ poster }) => {
   return (
