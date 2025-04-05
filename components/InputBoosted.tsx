@@ -2,7 +2,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Input } from "./ui/input";
-const InputBoosted = ({
+
+type InputBoostedProps<T> = {
+  name: string | number | React.ReactNode;
+  icon?: React.ReactNode;
+  isUppercase?: boolean;
+  type?: string;
+  value: T;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  step?: number;
+  bgColor?: string;
+};
+const InputBoosted = <T extends string | number | string[] | undefined>({
   name,
   icon,
   isUppercase = true,
@@ -11,16 +22,7 @@ const InputBoosted = ({
   onChange,
   step,
   bgColor = "#fff",
-}: {
-  name: string;
-  icon?: React.ReactNode;
-  isUppercase?: boolean;
-  type?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  step?: number;
-  bgColor?: string;
-}) => {
+}: InputBoostedProps<T>) => {
   const [isTextInSearch, setIsTextInSearch] = useState("");
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +36,7 @@ const InputBoosted = ({
   };
   useEffect(() => {
     if (value) {
-      setIsTextInSearch(value);
+      setIsTextInSearch(String(value));
     } else {
       setIsTextInSearch("");
     }

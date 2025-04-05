@@ -4,6 +4,7 @@ import InputBoosted from "../InputBoosted";
 
 const NewsletterFooterSection = () => {
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  console.log(newsletterEmail);
   return (
     <div className="flex flex-col gap-3 border-b md:border p-4 md:border-t-0 md:border-b-0  ">
       <span>Newsletter</span>
