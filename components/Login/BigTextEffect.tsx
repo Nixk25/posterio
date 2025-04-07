@@ -5,7 +5,7 @@ const BigTextEffect = ({
   headline,
   direction,
 }: {
-  headline: string;
+  headline: string | undefined;
   direction: number;
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -53,8 +53,8 @@ const BigTextEffect = ({
       ref={containerRef}
     >
       <span className="mx-auto whitespace-nowrap text-center" ref={textRef}>
-        {headline.split("").map((char, i) => {
-          const charIndex = direction > 0 ? i : headline.length - 1 - i;
+        {headline!.split("").map((char, i) => {
+          const charIndex = direction > 0 ? i : headline!.length - 1 - i;
           const delay = 0.15 * charIndex;
 
           return (

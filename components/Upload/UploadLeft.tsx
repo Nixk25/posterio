@@ -1,6 +1,7 @@
 import React from "react";
 import UploadInfo from "./UploadInfo";
-import type { PosterDetails } from "./UploadZone";
+import { PosterDetails } from "./UploadPage";
+
 const UploadLeft = ({
   posterDetails,
   setPosterDetails,
@@ -32,14 +33,21 @@ const UploadLeft = ({
         posterDetails={posterDetails}
         setPosterDetails={setPosterDetails}
       />
-      <div className="flex gap-4 mt-10 flex-wrap justify-center">
+
+      <div className="flex gap-2 ">
         {colors.map((color, index) => (
           <div
             key={index}
-            className="w-24 h-24 rounded shadow-md border"
-            style={{ backgroundColor: color }}
-            title={color}
-          />
+            className="w-8 h-8 rounded-full cursor-pointer group relative"
+          >
+            <div
+              style={{ backgroundColor: color }}
+              className="rounded-full w-full h-full"
+            />
+            <div className="absolute bg-white p-2 bottom-[-40px] left-0 opacity-0 group-hover:opacity-100 z-10 text-xs text-gray-700 transition-all duration-300 ease-in-out">
+              {color}
+            </div>
+          </div>
         ))}
       </div>
       <div className="absolute bottom-2 md:bottom-10 flex gap-2 items-center right-4 ">

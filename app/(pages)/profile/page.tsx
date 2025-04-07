@@ -1,12 +1,15 @@
 import BigTextEffect from "@/components/Login/BigTextEffect";
 import ProfileBottom from "@/components/Profile/ProfileBottom";
 import React from "react";
-
-const Profile = () => {
+import { auth } from "@/auth";
+import { headers } from "next/headers";
+const Profile = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   return (
     <section>
-      <BigTextEffect headline="Joe Doe" direction={1} />
-
+      <BigTextEffect headline={session?.user.name} direction={1} />
       <ProfileBottom />
     </section>
   );

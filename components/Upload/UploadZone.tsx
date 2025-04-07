@@ -1,39 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
 import UploadImage from "./UploadImage";
 import EnterPosterDetails from "./EnterPosterDetails";
+import { PosterDetails, UploadResponse } from "./UploadPage";
 
-export type PosterDetails = {
-  author: string;
-  description: string;
-  fonts: string[];
-  colors: string[];
-  tools: string[];
-  published: Date;
-  tags: string[];
-};
-export type UploadResponse = {
-  name: string;
-  serverData: { uploadedBy: string };
-  size: number;
-  type: string;
-  ufsUrl: string;
-};
-
-const UploadZone = () => {
-  const [posterImage, setPosterImage] = useState<UploadResponse[] | null>(null);
-
-  const [posterDetails, setPosterDetails] = useState<PosterDetails>({
-    author: "",
-    description: "",
-    fonts: [],
-    colors: [],
-    tools: [],
-    published: new Date(),
-    tags: [],
-  });
-
+const UploadZone = ({
+  posterImage,
+  setPosterImage,
+  posterDetails,
+  setPosterDetails,
+}: {
+  posterImage: UploadResponse[] | null;
+  setPosterImage: React.Dispatch<React.SetStateAction<UploadResponse[] | null>>;
+  posterDetails: PosterDetails;
+  setPosterDetails: React.Dispatch<React.SetStateAction<PosterDetails>>;
+}) => {
   console.log(posterDetails);
 
   return (

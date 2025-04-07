@@ -1,7 +1,7 @@
 import React from "react";
 import UploadInfo from "./UploadInfo";
-import type { PosterDetails } from "./UploadZone";
-import { Facebook, Instagram } from "lucide-react";
+import { PosterDetails } from "./UploadPage";
+import EnterSocials from "./EnterSocials";
 const UploadRight = ({
   posterDetails,
   setPosterDetails,
@@ -32,10 +32,10 @@ const UploadRight = ({
         setPosterDetails={setPosterDetails}
       />
 
-      <div className="flex gap-2 absolute bottom-2 md:bottom-12 left-4">
-        <Instagram size={20} />
-        <Facebook size={20} />
-      </div>
+      <EnterSocials
+        posterDetails={posterDetails}
+        setPosterDetails={setPosterDetails}
+      />
     </div>
   );
 };

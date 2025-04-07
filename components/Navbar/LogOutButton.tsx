@@ -25,7 +25,7 @@ const LogOutButton = () => {
   return (
     <button
       onClick={handleSignOut}
-      className="bg-accent px-4 py-2 border cursor-pointer "
+      className="bg-accent px-4 py-2 border cursor-pointer text-nowrap  "
     >
       Log out
     </button>

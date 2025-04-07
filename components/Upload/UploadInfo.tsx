@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import InputBoosted from "../InputBoosted";
-import { PosterDetails } from "./UploadZone";
+import { PosterDetails } from "./UploadPage";
 
 type UploadInfoProps = {
   field: keyof PosterDetails;

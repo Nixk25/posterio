@@ -4,8 +4,9 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import UploadLeft from "./UploadLeft";
 import UploadRight from "./UploadRight";
-import { PosterDetails, UploadResponse } from "./UploadZone";
+
 import { Vibrant } from "node-vibrant/browser";
+import { PosterDetails, UploadResponse } from "./UploadPage";
 
 const EnterPosterDetails = ({
   posterImage,

@@ -104,7 +104,7 @@ const MainContent = () => {
     setClickedIndex(index);
     setTimeout(() => {
       router.push(`/poster/${index}`);
-    }, 600); // počkej na animaci
+    }, 300);
   };
 
   return (

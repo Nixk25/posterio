@@ -1,7 +1,8 @@
 import React from "react";
 import { UploadDropzone } from "@/app/utils/uploadthing";
 import { toast } from "sonner";
-import { PosterDetails, UploadResponse } from "./UploadZone";
+import { PosterDetails, UploadResponse } from "./UploadPage";
+
 const UploadImage = ({
   setPosterImage,
   setPosterDetails,
