@@ -1,19 +1,15 @@
 import React from "react";
 import { motion } from "motion/react";
 import InputBoosted from "../InputBoosted";
-
-type PosterDetails = {
-  author: string;
-  description: string;
-  fonts: string[];
-  colors: string[];
-};
+import { PosterDetails } from "./UploadZone";
 
 type UploadInfoProps = {
   field: keyof PosterDetails;
   label: string;
   posterDetails: PosterDetails;
   setPosterDetails: React.Dispatch<React.SetStateAction<PosterDetails>>;
+  canRename?: boolean;
+  bgColor?: string;
 };
 
 const UploadInfo: React.FC<UploadInfoProps> = ({
@@ -21,6 +17,8 @@ const UploadInfo: React.FC<UploadInfoProps> = ({
   label,
   posterDetails,
   setPosterDetails,
+  canRename = true,
+  bgColor = "#fff",
 }) => {
   return (
     <motion.div
@@ -39,6 +37,8 @@ const UploadInfo: React.FC<UploadInfoProps> = ({
           }))
         }
         name={label}
+        canRename={canRename}
+        bgColor={bgColor}
       />
     </motion.div>
   );

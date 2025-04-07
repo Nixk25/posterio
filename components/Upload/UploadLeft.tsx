@@ -1,6 +1,6 @@
 import React from "react";
 import UploadInfo from "./UploadInfo";
-import type { PosterDetails } from "../UploadZone";
+import type { PosterDetails } from "./UploadZone";
 const UploadLeft = ({
   posterDetails,
   setPosterDetails,
@@ -10,15 +10,15 @@ const UploadLeft = ({
   setPosterDetails: React.Dispatch<React.SetStateAction<PosterDetails>>;
   colors: string[];
 }) => {
-  console.log(posterDetails);
-
   return (
-    <div className="flex flex-col gap-8 my-14 md:my-0   flex-1  h-max md:h-full relative ">
+    <div className="flex flex-col gap-8 my-14 md:my-0 flex-1  h-max md:h-full relative ">
       <UploadInfo
         field="author"
         label="Author"
         posterDetails={posterDetails}
         setPosterDetails={setPosterDetails}
+        canRename={false}
+        bgColor="#D8D9DC"
       />
       <UploadInfo
         field="description"

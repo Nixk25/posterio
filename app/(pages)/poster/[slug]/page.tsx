@@ -1,6 +1,5 @@
 import BigTextEffect from "@/components/Login/BigTextEffect";
-import DetailLeft from "@/components/PosterDetail/DetailLeft";
-import DetailRight from "@/components/PosterDetail/DetailRight";
+import DetailSection from "@/components/PosterDetail/DetailSection";
 import React from "react";
 
 const posters = [
@@ -114,13 +113,7 @@ const Poster = async ({ params }: { params: Promise<{ slug: string }> }) => {
   return (
     <div className="flex flex-col  items-center justify-center overflow-hidden">
       <BigTextEffect headline={poster.title} direction={1} />
-      <div className="flex w-full border-t  px-4 flex-col md:flex-row justify-between md:py-10 md:h-[720px]">
-        <DetailLeft poster={poster} />
-        <div
-          className={`h-[600px]  flex justify-center items-center mx-auto w-[300px] border ${poster.bg}`}
-        />
-        <DetailRight poster={poster} />
-      </div>
+      <DetailSection poster={poster} />
     </div>
   );
 };

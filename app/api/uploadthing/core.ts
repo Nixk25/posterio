@@ -1,9 +1,9 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 const f = createUploadthing();
-
-// FileRouter for your app, can contain multiple FileRoutes
+import { UploadThingError } from "uploadthing/server";
+import { auth } from "@/auth";
+import { headers } from "next/headers";
 export const ourFileRouter = {
-  // Define as many FileRoutes as you like, each with a unique routeSlug
   imageUploader: f({
     "image/png": {
       maxFileSize: "16MB",
@@ -18,14 +18,16 @@ export const ourFileRouter = {
       maxFileCount: 1,
     },
   })
-    // Set permissions and file types for this FileRoute
-    .onUploadComplete(async ({ file }) => {
-      // This code RUNS ON YOUR SERVER after upload
+    .middleware(async () => {
+      const session = await auth.api.getSession({
+        headers: await headers(),
+      });
+      if (!session) throw new UploadThingError("Unauthorized");
 
-      console.log("file url", file.ufsUrl);
-
-      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: "Nick" };
+      return { name: session?.user?.name };
+    })
+    .onUploadComplete(async ({ metadata }) => {
+      return { uploadedBy: metadata.name };
     }),
 } satisfies FileRouter;
 

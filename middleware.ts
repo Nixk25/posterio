@@ -22,7 +22,7 @@ export default async function authMiddleware(request: NextRequest) {
 
   if (!session) {
     if (isUploadRoute) {
-      return NextResponse.next();
+      return NextResponse.redirect(new URL("/login", request.url));
     }
 
     if (isAuthRoute) {

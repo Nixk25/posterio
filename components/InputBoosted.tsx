@@ -12,8 +12,9 @@ type InputBoostedProps<T> = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   step?: number;
   bgColor?: string;
+  canRename?: boolean;
 };
-const InputBoosted = <T extends string | number | string[] | undefined>({
+const InputBoosted = <T extends string | number | string[] | Date | undefined>({
   name,
   icon,
   isUppercase = true,
@@ -22,6 +23,7 @@ const InputBoosted = <T extends string | number | string[] | undefined>({
   onChange,
   step,
   bgColor = "#fff",
+  canRename = true,
 }: InputBoostedProps<T>) => {
   const [isTextInSearch, setIsTextInSearch] = useState("");
 
@@ -74,14 +76,15 @@ const InputBoosted = <T extends string | number | string[] | undefined>({
       <div className="relative flex h-full w-full items-center   gap-2">
         {icon && <div onClick={handleSearchClick}>{icon}</div>}
         <Input
+          disabled={!canRename}
           required
           type={type}
           ref={inputRef}
-          value={value}
+          value={value instanceof Date ? value.toLocaleDateString() : value}
           onChange={onChange}
           onFocus={() => setIsSearchActive(true)}
           onBlur={() => setIsSearchActive(false)}
-          className={`relative z-4 shadow-none ring-0   border-0 bg-transparent ${
+          className={`relative z-4 shadow-none ring-0 border-0 bg-transparent ${
             isUppercase ? "uppercase" : "normalText"
           }`}
         />
