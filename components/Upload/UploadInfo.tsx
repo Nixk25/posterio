@@ -29,11 +29,17 @@ const UploadInfo: React.FC<UploadInfoProps> = ({
     >
       <span className="font-bold detailHeadline text-3xl">{label}</span>
       <InputBoosted
-        value={posterDetails[field]}
+        value={
+          Array.isArray(posterDetails[field])
+            ? posterDetails[field].join(", ")
+            : (posterDetails[field] as string)
+        }
         onChange={(e) =>
           setPosterDetails((prev) => ({
             ...prev,
-            [field]: e.target.value,
+            [field]: Array.isArray(prev[field])
+              ? e.target.value.split(",").map((item) => item.trim())
+              : e.target.value,
           }))
         }
         name={label}

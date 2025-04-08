@@ -40,6 +40,31 @@ const EnterPosterDetails = ({
       }));
     }
   };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      console.log("Submitting:", posterDetails);
+
+      const res = await fetch("/api/posters", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(posterDetails),
+      });
+
+      const data = await res.json();
+      console.log("Server response:", data);
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      alert("Poster submitted successfully! 🖼️");
+    } catch (error) {
+      console.error("Error submitting:", error);
+      alert("Something went wrong 😢");
+    }
+  };
   return (
     <div className="flex w-full mb-20">
       <div className="relative w-full flex justify-center items-center">
@@ -53,36 +78,47 @@ const EnterPosterDetails = ({
             Loading...
           </motion.div>
         )}
-        <div className="flex w-full px-4 flex-col md:flex-row justify-between  md:py-10 md:h-[720px] gap-10">
-          <UploadLeft
-            colors={posterDetails.colors}
-            posterDetails={posterDetails}
-            setPosterDetails={setPosterDetails}
-          />
-          <motion.div
-            className="h-[600px] w-[80%] sm:w-[500px] "
-            animate={{
-              opacity: !isImageLoading ? 1 : 0,
-              filter: !isImageLoading ? "blur(0px)" : "blur(10px)",
-            }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <Image
-              src={posterImage[0].ufsUrl}
-              height={500}
-              width={300}
-              alt="posterImage"
-              className="h-full w-full object-cover "
-              placeholder="blur"
-              blurDataURL={posterImage[0].ufsUrl}
-              onLoadingComplete={handleImageLoad}
+        <form
+          onSubmit={handleSubmit}
+          className="w-full flex justify-center items-center flex-col"
+        >
+          <div className="flex w-full px-4 flex-col md:flex-row justify-between  md:py-10 md:h-[720px] gap-10">
+            <UploadLeft
+              colors={posterDetails.colors}
+              posterDetails={posterDetails}
+              setPosterDetails={setPosterDetails}
             />
-          </motion.div>
-          <UploadRight
-            posterDetails={posterDetails}
-            setPosterDetails={setPosterDetails}
-          />
-        </div>
+            <motion.div
+              className="h-[600px] w-[80%] sm:w-[500px] "
+              animate={{
+                opacity: !isImageLoading ? 1 : 0,
+                filter: !isImageLoading ? "blur(0px)" : "blur(10px)",
+              }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <Image
+                src={posterImage[0].ufsUrl}
+                height={500}
+                width={300}
+                alt="posterImage"
+                className="h-full w-full object-cover "
+                placeholder="blur"
+                blurDataURL={posterImage[0].ufsUrl}
+                onLoadingComplete={handleImageLoad}
+              />
+            </motion.div>
+            <UploadRight
+              posterDetails={posterDetails}
+              setPosterDetails={setPosterDetails}
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-accent px-4 py-2 border cursor-pointer"
+          >
+            Create new poster
+          </button>
+        </form>
       </div>
     </div>
   );
