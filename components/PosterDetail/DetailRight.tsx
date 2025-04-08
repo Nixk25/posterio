@@ -1,7 +1,6 @@
 import React from "react";
 import PosterDetail from "./PosterDetail";
 import { PosterProps } from "./ColorsSection";
-import { Facebook, Instagram } from "lucide-react";
 
 const DetailRight: React.FC<PosterProps> = ({ poster }) => {
   return (
@@ -27,10 +26,6 @@ const DetailRight: React.FC<PosterProps> = ({ poster }) => {
           </span>
         ))}
       />
-      <div className="flex gap-2 absolute bottom-2 md:bottom-12 left-4">
-        <Instagram size={20} />
-        <Facebook size={20} />
-      </div>
     </div>
   );
 };

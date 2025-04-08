@@ -1,7 +1,6 @@
 import React from "react";
 import UploadInfo from "./UploadInfo";
 import { PosterDetails } from "./UploadPage";
-import EnterSocials from "./EnterSocials";
 const UploadRight = ({
   posterDetails,
   setPosterDetails,
@@ -28,11 +27,6 @@ const UploadRight = ({
       <UploadInfo
         field="tags"
         label="Tags"
-        posterDetails={posterDetails}
-        setPosterDetails={setPosterDetails}
-      />
-
-      <EnterSocials
         posterDetails={posterDetails}
         setPosterDetails={setPosterDetails}
       />

@@ -79,9 +79,20 @@ const MainRegisterClient = () => {
           });
         },
         onError: (ctx) => {
-          toast.error("Something went wrong", {
-            description: `${ctx.error}`,
-          });
+          if (ctx.response?.status === 401) {
+            const errorMessage =
+              ctx.error.message ||
+              "User not found. Please check your credentials.";
+
+            toast.error("Login failed", {
+              description: errorMessage,
+            });
+          } else {
+            const errorMessage = ctx.error.message || "Something went wrong";
+            toast.error("Something went wrong", {
+              description: errorMessage,
+            });
+          }
         },
       }
     );

@@ -13,7 +13,6 @@ export type PosterDetails = {
   tools: string[];
   published: Date;
   tags: string[];
-  socials: string[];
 };
 export type UploadResponse = {
   name: string;
@@ -33,7 +32,6 @@ const UploadPage = () => {
     tools: [],
     published: new Date(),
     tags: [],
-    socials: [],
   });
   return (
     <>
