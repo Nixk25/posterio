@@ -1,23 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import PosterDetail from "./PosterDetail";
-
-export type Poster = {
-  title: string;
-  author: string;
-  description: string;
-  fonts: string[];
-  colors: string[];
-  tools: string[];
-  published: Date;
-  tags: string[];
-  views: number;
-  socials: {
-    instagram: string;
-    facebook: string;
-  };
-  bg: string;
-};
+import { Poster } from "@prisma/client";
 
 export type PosterProps = {
   poster: Poster;

@@ -16,8 +16,6 @@ const UploadZone = ({
   posterDetails: PosterDetails;
   setPosterDetails: React.Dispatch<React.SetStateAction<PosterDetails>>;
 }) => {
-  console.log(posterDetails);
-
   return (
     <>
       {posterImage ? (

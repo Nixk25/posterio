@@ -23,7 +23,7 @@ const UploadImage = ({
         label: "Upload your poster image",
         allowedContent: "Only PNG & JPG & WEBP images (max 16MB)",
       }}
-      className=" ut-label:text-black   uploadButton  ut-label:text-xl  "
+      className=" ut-label:text-black   uploadButton ut-label:text-xl  "
       endpoint="imageUploader"
       onClientUploadComplete={(res) => {
         toast.success("Image uploaded successfully", {

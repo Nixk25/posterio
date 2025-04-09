@@ -79,3 +79,39 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    const posters = await prisma.poster.findMany({
+      include: {
+        posterCategories: {
+          include: {
+            category: true,
+          },
+        },
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    const formattedPosters = posters.map((poster) => ({
+      ...poster,
+      tags: poster.posterCategories.map((pc) => pc.category.name),
+    }));
+
+    return NextResponse.json(formattedPosters, { status: 200 });
+  } catch (error) {
+    console.error("Chyba při GET /api/posters:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}

@@ -15,6 +15,7 @@ const UploadRight = ({
         label="Tools"
         posterDetails={posterDetails}
         setPosterDetails={setPosterDetails}
+        required={false}
       />
       <UploadInfo
         field="published"
@@ -29,6 +30,7 @@ const UploadRight = ({
         label="Tags"
         posterDetails={posterDetails}
         setPosterDetails={setPosterDetails}
+        required={false}
       />
     </div>
   );

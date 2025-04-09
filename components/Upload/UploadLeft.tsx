@@ -26,12 +26,14 @@ const UploadLeft = ({
         label="Description"
         posterDetails={posterDetails}
         setPosterDetails={setPosterDetails}
+        isText
       />
       <UploadInfo
         field="fonts"
         label="Fonts"
         posterDetails={posterDetails}
         setPosterDetails={setPosterDetails}
+        required={false}
       />
 
       <div className="flex gap-2 ">

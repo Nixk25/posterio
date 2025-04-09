@@ -13,6 +13,8 @@ type InputBoostedProps<T> = {
   step?: number;
   bgColor?: string;
   canRename?: boolean;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  required?: boolean;
 };
 const InputBoosted = <T extends string | number | string[] | Date | undefined>({
   name,
@@ -24,6 +26,8 @@ const InputBoosted = <T extends string | number | string[] | Date | undefined>({
   step,
   bgColor = "#fff",
   canRename = true,
+  onKeyDown,
+  required = true,
 }: InputBoostedProps<T>) => {
   const [isTextInSearch, setIsTextInSearch] = useState("");
 
@@ -76,8 +80,9 @@ const InputBoosted = <T extends string | number | string[] | Date | undefined>({
       <div className="relative flex h-full w-full items-center   gap-2">
         {icon && <div onClick={handleSearchClick}>{icon}</div>}
         <Input
+          onKeyDown={onKeyDown}
           disabled={!canRename}
-          required
+          required={required}
           type={type}
           ref={inputRef}
           value={value instanceof Date ? value.toLocaleDateString() : value}

@@ -53,6 +53,7 @@ const UploadPage = () => {
             label="title"
             posterDetails={posterDetails}
             setPosterDetails={setPosterDetails}
+            isText
           />
         </div>
       ) : (

@@ -1,12 +1,12 @@
 import React from "react";
 import PosterDetail from "./PosterDetail";
-import ColorsSection, { PosterProps } from "./ColorsSection";
-
-const DetailLeft: React.FC<PosterProps> = ({ poster }) => {
+import { PosterTypeProps } from "./DetailRight";
+import ColorsSection from "./ColorsSection";
+const DetailLeft: React.FC<PosterTypeProps> = ({ poster }) => {
   return (
     <div className="flex flex-col gap-8 my-14 md:my-0   flex-1  h-max md:h-full relative ">
-      <PosterDetail name="Author" detail={poster.author} />
-      <PosterDetail name="Description" detail={poster.description} />
+      <PosterDetail name="Author" detail={poster?.user?.name} />
+      <PosterDetail name="Description" detail={poster.description || null} />
       <PosterDetail
         name="Fonts"
         detail={poster.fonts.map((font) => (

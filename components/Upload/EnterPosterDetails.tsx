@@ -4,9 +4,10 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import UploadLeft from "./UploadLeft";
 import UploadRight from "./UploadRight";
-
+import { useRouter } from "next/navigation";
 import { Vibrant } from "node-vibrant/browser";
 import { PosterDetails, UploadResponse } from "./UploadPage";
+import { toast } from "sonner";
 
 const EnterPosterDetails = ({
   posterImage,
@@ -18,7 +19,7 @@ const EnterPosterDetails = ({
   posterDetails: PosterDetails;
 }) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
-
+  const router = useRouter();
   const rgbToHex = (rgb: number[]): string => {
     const hex = rgb.map((x) => x.toString(16).padStart(2, "0")).join("");
     return `#${hex}`;
@@ -45,8 +46,6 @@ const EnterPosterDetails = ({
     e.preventDefault();
 
     try {
-      console.log("Submitting:", posterDetails);
-
       const res = await fetch("/api/posters", {
         method: "POST",
         headers: {
@@ -55,14 +54,22 @@ const EnterPosterDetails = ({
         body: JSON.stringify(posterDetails),
       });
 
-      const data = await res.json();
-      console.log("Server response:", data);
+      if (!res.ok) {
+        throw new Error(`Failed to submit poster: ${res.statusText}`);
+      }
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      alert("Poster submitted successfully! 🖼️");
-    } catch (error) {
-      console.error("Error submitting:", error);
-      alert("Something went wrong 😢");
+      toast.success("Poster submitted successfully! 🖼️", {
+        description: "Thank you for your work! 🙏",
+      });
+      router.replace("/");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error("Something went wrong 😢", {
+          description: `${error.message}`,
+        });
+      } else {
+        toast.error("Something went wrong 😢");
+      }
     }
   };
   return (
