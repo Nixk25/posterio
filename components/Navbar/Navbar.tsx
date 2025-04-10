@@ -12,7 +12,7 @@ const Navbar = async () => {
   return (
     <header className="w-full p-2 border-t-0 border relative">
       <nav className="flex sm:px-4 justify-between items-center">
-        <ul className="flex items-center gap-4  ">
+        <ul className="flex items-center gap-4 text-xs sm:text-base  ">
           {NAVBAR_LINKS.map((link) => (
             <li key={link.name}>
               <Link href={link.href}>{link.name}</Link>

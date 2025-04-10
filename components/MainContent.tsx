@@ -52,7 +52,7 @@ const MainContent = () => {
   }, []);
 
   return (
-    <div className="relative h-full w-full grid gap-5 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] p-4 place-items-center overflow-hidden z-[1] min-h-screen">
+    <main className="relative h-full w-full grid gap-5 grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))] p-4 place-items-center overflow-hidden z-[1] min-h-screen">
       {posters.map((poster, index) => (
         <motion.div
           key={index}
@@ -86,7 +86,7 @@ const MainContent = () => {
           />
         </motion.div>
       ))}
-    </div>
+    </main>
   );
 };
 

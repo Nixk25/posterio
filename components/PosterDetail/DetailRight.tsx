@@ -23,7 +23,7 @@ const DetailRight: React.FC<PosterTypeProps> = ({ poster }) => {
       <PosterDetail
         name="Tags"
         detail={poster.posterCategories.map((catObj, idx) => (
-          <span key={idx} className="bg-accent text-xs px-2 py-0.5 ">
+          <span key={idx} className="bg-accent  px-2 py-0.5 ">
             {catObj.category.name}
           </span>
         ))}

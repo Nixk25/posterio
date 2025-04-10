@@ -39,7 +39,7 @@ const LoginBlock = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut", delay: 0.7 }}
       className={`min-w-[300px] py-[50px] md:py-[100px] bg-background w-[80%] max-w-[800px] border flex flex-col justify-center items-center z-2 ${
-        step === 2 ? "mt-0" : "mt-[-100px] md:mt-[-200px]"
+        step === 2 ? "mt-0" : "mt-[-40px] md:mt-[-200px]"
       } `}
     >
       <div className="w-full">

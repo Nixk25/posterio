@@ -1,7 +1,17 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import { motion } from "motion/react";
-const CategoryContent = ({ activeCategory }: { activeCategory: string }) => {
+import { PosterType } from "@/app/(pages)/poster/[slug]/page";
+import Image from "next/image";
+import Link from "next/link";
+const CategoryContent = ({
+  activeCategory,
+  userPosters,
+}: {
+  activeCategory: string;
+  userPosters: PosterType[];
+}) => {
+  const filteredPosters = activeCategory === "My posts" ? userPosters : [];
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -52,28 +62,50 @@ const CategoryContent = ({ activeCategory }: { activeCategory: string }) => {
       onMouseMove={handleMouseMove}
     >
       <div className="flex gap-5 w-max px-4">
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.5 * (2 + i) }}
-            key={i}
-            className="flex flex-col h-[600px] w-[500px] border mt-5 mb-10 shrink-0 scroll-snap-start snap-center select-none"
+        {filteredPosters.length > 0 ? (
+          filteredPosters.map((poster, i) => (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.5 * (2 + i) }}
+              key={i}
+              className="flex flex-col h-full mt-5 mb-10 scroll-snap-start snap-center select-none"
+            >
+              <div className="flex flex-col gap-2 border select-none">
+                <div className="flex flex-col p-2">
+                  <h3 className="text-lg font-semibold">{poster.title}</h3>
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {poster.posterCategories.map((catObj, idx) => (
+                      <span key={idx} className="bg-accent text-xs px-2 py-0.5">
+                        {catObj.category.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="h-[600px] w-[500px] mx-auto">
+                  <Image
+                    src={poster.imgUrl}
+                    alt={poster.title}
+                    className="w-full h-full object-cover"
+                    width={300}
+                    height={600}
+                    draggable="false"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          ))
+        ) : (
+          <Link
+            href="/upload"
+            className="h-[300px]  text-3xl flex-col flex justify-center"
           >
-            {activeCategory === "My posts" && (
-              <>
-                <h3 className="px-2 ">Starry Night</h3>
-                <div className="bg-gray-800 h-full w-full" />
-              </>
-            )}
-            {activeCategory === "Favorites" && (
-              <>
-                <h3 className="px-2 ">Favorite piece</h3>
-                <div className="bg-yellow-200 h-full w-full" />
-              </>
-            )}
-          </motion.div>
-        ))}
+            <span>You don&apos;t have any posters</span>
+            <span className="underline hover:text-accent transition-all duration-300 ease-in-out">
+              Upload some
+            </span>
+          </Link>
+        )}
       </div>
     </div>
   );

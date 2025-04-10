@@ -5,9 +5,9 @@ import { PosterType } from "@/app/(pages)/poster/[slug]/page";
 import Image from "next/image";
 const DetailSection = ({ poster }: { poster: PosterType }) => {
   return (
-    <div className="flex w-full border-t  px-4 flex-col md:flex-row justify-between md:py-10 md:h-[720px]">
+    <div className="flex w-full border-t   px-4 flex-col md:flex-row justify-between md:py-10 md:h-[820px]">
       <DetailLeft poster={poster} />
-      <div className="h-[600px] w-[80%] sm:w-[500px] mx-auto ">
+      <div className="h-max w-[80%] sm:w-[500px] mx-auto ">
         <Image
           src={poster.imgUrl}
           height={500}

@@ -4,11 +4,13 @@ import type { Session } from "@/auth";
 
 const authRoutes = ["/login", "/register"];
 const uploadRoute = "/upload";
+const profileRoute = "/profile";
 
 export default async function authMiddleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const isAuthRoute = authRoutes.includes(pathName);
   const isUploadRoute = pathName === uploadRoute;
+  const isProfileRoute = pathName === profileRoute;
 
   const { data: session } = await betterFetch<Session>(
     "/api/auth/get-session",
@@ -21,7 +23,7 @@ export default async function authMiddleware(request: NextRequest) {
   );
 
   if (!session) {
-    if (isUploadRoute) {
+    if (isUploadRoute || isProfileRoute) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
@@ -38,6 +40,7 @@ export default async function authMiddleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Defaultní pokračování
   return NextResponse.next();
 }
 

@@ -57,6 +57,9 @@ body {
 .detailText {
   font-size: clamp(1rem, 1vw, 2rem);
 }
+.loadingText {
+  font-size: clamp(2rem, 1vw, 6rem);
+}
 
 .uploadButton > *[data-ut-element="button"]::after {
   background-color: var(--color-accent) !important;

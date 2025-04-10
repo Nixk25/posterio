@@ -67,7 +67,7 @@ const Poster = async ({ params }: { params: Promise<{ slug: string }> }) => {
   });
 
   return (
-    <div className="flex flex-col  items-center justify-center overflow-hidden">
+    <div className="flex flex-col   items-center justify-center overflow-hidden">
       <BigTextEffect headline={poster.title} direction={1} />
       <DetailSection poster={poster} />
     </div>

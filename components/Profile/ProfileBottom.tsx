@@ -1,9 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import CategoryContent from "./CategoryContent";
+
 const ProfileBottom = () => {
   const [activeCategory, setActiveCategory] = useState("My posts");
+  const [userPosters, setUserPosters] = useState([]);
+
+  useEffect(() => {
+    const getUserPosters = async () => {
+      try {
+        const response = await fetch("/api/posters/user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch user posters");
+        }
+
+        const posters = await response.json();
+        setUserPosters(posters);
+      } catch (error) {
+        console.error("Error fetching user posters:", error);
+      }
+    };
+
+    getUserPosters();
+  }, []);
 
   const categories = [
     {
@@ -45,7 +71,11 @@ const ProfileBottom = () => {
           </motion.span>
         ))}
       </div>
-      <CategoryContent activeCategory={activeCategory} />
+
+      <CategoryContent
+        activeCategory={activeCategory}
+        userPosters={userPosters}
+      />
     </>
   );
 };
