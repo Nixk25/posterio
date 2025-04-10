@@ -119,6 +119,10 @@ export async function deletePoster(posterId: string) {
       };
     }
 
+    await prisma.posterCategory.deleteMany({
+      where: { posterId: posterId },
+    });
+
     await prisma.poster.delete({
       where: { id: posterId },
     });
