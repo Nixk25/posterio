@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import UploadLeft from "./UploadLeft";
@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { Vibrant } from "node-vibrant/browser";
 import { PosterDetails, UploadResponse } from "./UploadPage";
 import { toast } from "sonner";
+import { createPoster } from "@/actions/posterActions";
 
 const EnterPosterDetails = ({
   posterImage,
@@ -18,6 +19,7 @@ const EnterPosterDetails = ({
   setPosterDetails: React.Dispatch<React.SetStateAction<PosterDetails>>;
   posterDetails: PosterDetails;
 }) => {
+  const [isPending, startTransition] = useTransition();
   const [isImageLoading, setIsImageLoading] = useState(true);
   const router = useRouter();
   const rgbToHex = (rgb: number[]): string => {
@@ -45,32 +47,30 @@ const EnterPosterDetails = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch("/api/posters", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(posterDetails),
-      });
+    startTransition(async () => {
+      try {
+        const result = await createPoster(posterDetails);
 
-      if (!res.ok) {
-        throw new Error(`Failed to submit poster: ${res.statusText}`);
+        if (result.success) {
+          toast.success("Poster submitted successfully! 🖼️", {
+            description: "Thank you for your work! 🙏",
+          });
+          router.replace("/");
+        } else {
+          toast.error("Something went wrong 😢", {
+            description: result.error || "Failed to create poster",
+          });
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          toast.error("Something went wrong 😢", {
+            description: error.message,
+          });
+        } else {
+          toast.error("Something went wrong 😢");
+        }
       }
-
-      toast.success("Poster submitted successfully! 🖼️", {
-        description: "Thank you for your work! 🙏",
-      });
-      router.replace("/");
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error("Something went wrong 😢", {
-          description: `${error.message}`,
-        });
-      } else {
-        toast.error("Something went wrong 😢");
-      }
-    }
+    });
   };
   return (
     <div className="flex w-full mb-20">
@@ -111,7 +111,7 @@ const EnterPosterDetails = ({
                 className="h-full w-full object-cover "
                 placeholder="blur"
                 blurDataURL={posterImage[0].ufsUrl}
-                onLoadingComplete={handleImageLoad}
+                onLoad={handleImageLoad}
               />
             </motion.div>
             <UploadRight
@@ -123,7 +123,7 @@ const EnterPosterDetails = ({
             type="submit"
             className="bg-accent px-4 py-2 border cursor-pointer"
           >
-            Create new poster
+            {isPending ? "Creating..." : "Create new poster"}
           </button>
         </form>
       </div>

@@ -2,33 +2,25 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import CategoryContent from "./CategoryContent";
+import { getUserPosters } from "@/actions/posterActions";
+import { PosterType } from "@/app/(pages)/poster/[slug]/page";
 
 const ProfileBottom = () => {
   const [activeCategory, setActiveCategory] = useState("My posts");
-  const [userPosters, setUserPosters] = useState([]);
+  const [userPosters, setUserPosters] = useState<PosterType[]>([]);
 
   useEffect(() => {
-    const getUserPosters = async () => {
-      try {
-        const response = await fetch("/api/posters/user", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+    const fetchUserPosters = async () => {
+      const result = await getUserPosters();
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch user posters");
-        }
-
-        const posters = await response.json();
-        setUserPosters(posters);
-      } catch (error) {
-        console.error("Error fetching user posters:", error);
+      if (result.success) {
+        setUserPosters(result.posters);
+      } else {
+        console.error("Chyba při načítání:", result.error);
       }
     };
 
-    getUserPosters();
+    fetchUserPosters();
   }, []);
 
   const categories = [
@@ -75,6 +67,7 @@ const ProfileBottom = () => {
       <CategoryContent
         activeCategory={activeCategory}
         userPosters={userPosters}
+        setUserPosters={setUserPosters}
       />
     </>
   );

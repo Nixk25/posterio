@@ -1,13 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import PosterDetail from "./PosterDetail";
-import { Poster } from "@prisma/client";
+import { PosterType } from "@/app/(pages)/poster/[slug]/page";
 
 export type PosterProps = {
-  poster: Poster;
+  poster: PosterType;
 };
 const ColorsSection: React.FC<PosterProps> = ({ poster }) => {
-  const [copiedColor, setCopiedColor] = useState<string | null>(null);
+  const [copiedColor, setCopiedColor] = useState<string | null | undefined>(
+    null
+  );
 
   const handleColorCopy = (color: string) => {
     navigator.clipboard.writeText(color).then(() => {

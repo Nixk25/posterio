@@ -3,28 +3,28 @@ import DetailSection from "@/components/PosterDetail/DetailSection";
 import prisma from "@/lib/prisma";
 import React from "react";
 export type PosterType = {
-  id: string;
+  id?: string;
   title: string;
   description: string | null;
   fonts: string[];
   colors: string[];
   tools: string[];
-  views: number;
-  socials: string[];
+  views?: number;
+  socials?: string[];
   imgUrl: string;
+  tags?: string[];
+  categoryIds?: string[];
+  userId?: string;
 
-  categoryIds: string[];
-  userId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 
-  createdAt: Date;
-  updatedAt: Date;
-
-  user: {
+  user?: {
     name: string;
     email: string;
   };
 
-  posterCategories: {
+  posterCategories?: {
     category: {
       id: string;
       name: string;

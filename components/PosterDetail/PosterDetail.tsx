@@ -7,7 +7,7 @@ const PosterDetail = ({
   detail,
 }: {
   name: string;
-  detail: string | string[] | React.ReactNode[] | null;
+  detail: string | string[] | React.ReactNode[] | null | undefined;
 }) => {
   const isFlexLayout = name === "Colors" || name === "Tags";
 

@@ -18,11 +18,11 @@ const DetailRight: React.FC<PosterTypeProps> = ({ poster }) => {
       />
       <PosterDetail
         name="Published"
-        detail={poster.createdAt.toLocaleDateString()}
+        detail={poster?.createdAt?.toLocaleDateString()}
       />
       <PosterDetail
         name="Tags"
-        detail={poster.posterCategories.map((catObj, idx) => (
+        detail={poster?.posterCategories?.map((catObj, idx) => (
           <span key={idx} className="bg-accent  px-2 py-0.5 ">
             {catObj.category.name}
           </span>
