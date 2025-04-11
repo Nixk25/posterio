@@ -127,6 +127,24 @@ export async function deletePoster(posterId: string) {
       where: { id: posterId },
     });
 
+    const categoriesToDelete = await prisma.category.findMany({
+      where: {
+        posters: {
+          none: {},
+        },
+      },
+    });
+
+    if (categoriesToDelete.length > 0) {
+      await prisma.category.deleteMany({
+        where: {
+          id: {
+            in: categoriesToDelete.map((category) => category.id),
+          },
+        },
+      });
+    }
+
     revalidatePath("/profile");
 
     return { success: true };
@@ -188,5 +206,94 @@ export async function getUserPosters() {
       error: "Something went wrong with loading user posters",
       posters: [],
     };
+  }
+}
+
+export async function updatePoster(
+  posterId: string,
+  updatedDetails: PosterType
+) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  try {
+    const { title, description, fonts, tools, tags } = updatedDetails;
+
+    if (!title || !fonts || !tools || !tags) {
+      return { success: false, error: "Missing required fields" };
+    }
+
+    const existingPoster = await prisma.poster.findUnique({
+      where: { id: posterId },
+      include: {
+        posterCategories: {
+          include: { category: true },
+        },
+      },
+    });
+
+    if (!existingPoster) {
+      return { success: false, error: "Poster not found" };
+    }
+
+    // Původní názvy tagů
+    const existingTags = existingPoster.posterCategories
+      .map((pc) => pc.category.name)
+      .sort();
+    const newTags = [...tags].sort();
+
+    // Pokud se tagy změnily, smažeme staré vazby
+    const tagsChanged =
+      JSON.stringify(existingTags) !== JSON.stringify(newTags);
+
+    if (tagsChanged) {
+      await prisma.posterCategory.deleteMany({
+        where: {
+          posterId: posterId,
+        },
+      });
+    }
+
+    // Upsert kategorií (vždy, protože je potřebujeme i pro categoryIds)
+    const categories = await Promise.all(
+      tags.map(async (tag: string) => {
+        return prisma.category.upsert({
+          where: { name: tag },
+          update: {},
+          create: { name: tag },
+        });
+      })
+    );
+
+    const updatedPoster = await prisma.poster.update({
+      where: {
+        id: posterId,
+        userId: session?.user.id as string,
+      },
+      data: {
+        title,
+        description,
+        fonts,
+        tools,
+        categoryIds: categories.map((c) => c.id),
+        posterCategories: tagsChanged
+          ? {
+              create: categories.map((category) => ({
+                category: { connect: { id: category.id } },
+              })),
+            }
+          : undefined,
+      },
+      include: {
+        posterCategories: true,
+      },
+    });
+
+    revalidatePath("/");
+    return { success: true, data: updatedPoster };
+  } catch (error) {
+    console.error("Could not update poster:", error);
+    return { success: false, error: "Failed to update poster" };
   }
 }
