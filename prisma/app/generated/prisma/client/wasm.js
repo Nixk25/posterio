@@ -189,6 +189,13 @@ exports.Prisma.PosterCategoryScalarFieldEnum = {
   categoryId: 'categoryId'
 };
 
+exports.Prisma.FavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  posterId: 'posterId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -207,7 +214,8 @@ exports.Prisma.ModelName = {
   Verification: 'Verification',
   Poster: 'Poster',
   Category: 'Category',
-  PosterCategory: 'PosterCategory'
+  PosterCategory: 'PosterCategory',
+  Favorite: 'Favorite'
 };
 
 /**

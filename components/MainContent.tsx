@@ -5,14 +5,15 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { toast } from "sonner";
 import { PosterType } from "@/app/(pages)/poster/[slug]/page";
-import { ThumbsUp } from "lucide-react";
-import { getPosters } from "@/actions/posterActions";
+import { Star } from "lucide-react";
+import { getPosters, toggleFavoritePoster } from "@/actions/posterActions";
+import { getUserFavorites } from "@/actions/posterActions";
 
 const MainContent = () => {
   const router = useRouter();
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
   const [posters, setPosters] = useState<PosterType[]>([]);
-  const [likedPosts, setLikedPosts] = useState<number[]>([]);
+  const [likedPosts, setLikedPosts] = useState<string[]>([]);
   const handleClick = (index: number, id: string) => {
     setClickedIndex(index);
     setTimeout(() => {
@@ -21,37 +22,60 @@ const MainContent = () => {
   };
 
   useEffect(() => {
-    const fetchPosters = async () => {
+    const fetchData = async () => {
       try {
-        const result = await getPosters();
+        // Načíst postery
+        const postersResult = await getPosters();
 
-        if (result.success) {
-          if (result.data) {
-            setPosters(result.data);
+        // Načíst oblíbené postery uživatele
+        const favoritesResult = await getUserFavorites();
+
+        if (postersResult.success) {
+          if (postersResult.data) {
+            setPosters(postersResult.data);
           }
         } else {
           toast.error("Failed to load posters", {
-            description: result.error,
+            description: postersResult.error,
           });
+        }
+
+        // Nastavit oblíbené postery
+        if (favoritesResult.success) {
+          const favoriteIds = favoritesResult.favorites.map(
+            (fav) => fav.posterId
+          );
+          setLikedPosts(favoriteIds);
         }
       } catch (error: unknown) {
         const errorMessage =
           error instanceof Error ? error.message : "Unknown error";
 
-        toast.error("Something went wrong", {
-          description: errorMessage,
-        });
+        toast.error("Something went wrong", { description: errorMessage });
       }
     };
 
-    fetchPosters();
+    fetchData();
   }, []);
 
-  const handleLike = (id: number) => () => {
-    if (likedPosts.includes(id)) {
-      setLikedPosts(likedPosts.filter((postId) => postId !== id));
-    } else {
-      setLikedPosts([...likedPosts, id]);
+  const handleLike = (id: string) => async () => {
+    try {
+      const result = await toggleFavoritePoster(id);
+
+      if (result.success) {
+        if (result.favorited) {
+          setLikedPosts([...likedPosts, id]);
+          toast.success("Poster added to favorites!");
+        } else {
+          setLikedPosts(likedPosts.filter((postId) => postId !== id));
+          toast.success("Poster removed from favorites!");
+        }
+      } else {
+        toast.error(result.error || "Something went wrong");
+      }
+    } catch (error) {
+      toast.error("Something went wrong with adding poster to favorites");
+      console.error(error);
     }
   };
 
@@ -60,7 +84,7 @@ const MainContent = () => {
       {posters.map((poster, index) => (
         <motion.div
           key={index}
-          className="flex flex-col h-[600px] sm:h-[700px] w-[300px] sm:w-[400px] border  cursor-pointer origin-center"
+          className="flex flex-col h-[600px] sm:h-[700px] w-[300px] sm:w-[400px] border cursor-pointer origin-center"
           initial={false}
           animate={
             clickedIndex === index
@@ -71,19 +95,21 @@ const MainContent = () => {
         >
           <div className="flex justify-between items-center p-2 bg-white">
             <div className="flex flex-col">
-              <h3 className=" text-lg font-semibold ">{poster.title}</h3>
+              <h3 className="text-lg font-semibold">{poster.title}</h3>
               <div className="flex flex-wrap gap-1 mt-1">
                 {poster.posterCategories!.map((catObj, idx) => (
-                  <span key={idx} className="bg-accent text-xs px-2 py-0.5 ">
+                  <span key={idx} className="bg-accent text-xs px-2 py-0.5">
                     {catObj.category.name}
                   </span>
                 ))}
               </div>
             </div>
-            <span onClick={handleLike(index)}>
-              <ThumbsUp
+            <span onClick={handleLike(poster.id!)}>
+              <Star
                 className="text-3xl transition-all duration-300 ease-in-out hover:scale-90 active:scale-150"
-                fill={likedPosts.includes(index) ? "#FEF11F" : "transparent"}
+                fill={
+                  likedPosts.includes(poster.id!) ? "#FEF11F" : "transparent"
+                }
               />
             </span>
           </div>

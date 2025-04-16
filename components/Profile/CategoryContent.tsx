@@ -8,10 +8,12 @@ import FilteredPosters from "../FilteredPosters";
 import { useRouter } from "next/navigation";
 
 const CategoryContent = ({
+  favoritePosters,
   activeCategory,
   userPosters,
   setUserPosters,
 }: {
+  favoritePosters: PosterType[];
   activeCategory: string;
   userPosters: PosterType[];
   setUserPosters: React.Dispatch<React.SetStateAction<PosterType[]>>;
@@ -21,7 +23,8 @@ const CategoryContent = ({
   const [updateDialog, setUpdateDialog] = useState(false);
   const [selectedPosterId, setSelectedPosterId] = useState<string | null>(null);
   const [editingPoster, setEditingPoster] = useState<PosterType | null>(null);
-  const filteredPosters = activeCategory === "My posts" ? userPosters : [];
+  const filteredPosters =
+    activeCategory === "My posts" ? userPosters : favoritePosters;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);

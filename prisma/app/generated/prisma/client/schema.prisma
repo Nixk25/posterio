@@ -30,6 +30,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
   posters       Poster[]
+
+  favorites Favorite[]
 }
 
 model Session {
@@ -91,6 +93,7 @@ model Poster {
 
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   posterCategories PosterCategory[]
+  favorites        Favorite[]
 }
 
 model Category {
@@ -110,4 +113,16 @@ model PosterCategory {
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([posterId, categoryId])
+}
+
+model Favorite {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  posterId  String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  poster Poster @relation(fields: [posterId], references: [id])
+
+  @@unique([userId, posterId])
 }

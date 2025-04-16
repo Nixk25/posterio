@@ -8,29 +8,24 @@ import { PosterType } from "@/app/(pages)/poster/[slug]/page";
 const ProfileBottom = () => {
   const [activeCategory, setActiveCategory] = useState("My posts");
   const [userPosters, setUserPosters] = useState<PosterType[]>([]);
+  const [favoritePosters, setFavoritePosters] = useState<PosterType[]>([]);
 
   useEffect(() => {
-    const fetchUserPosters = async () => {
+    const fetchUserData = async () => {
       const result = await getUserPosters();
 
       if (result.success) {
         setUserPosters(result.posters);
+        setFavoritePosters(result.favorites);
       } else {
         console.error("Chyba při načítání:", result.error);
       }
     };
 
-    fetchUserPosters();
+    fetchUserData();
   }, []);
 
-  const categories = [
-    {
-      name: "My posts",
-    },
-    {
-      name: "Favorites",
-    },
-  ];
+  const categories = [{ name: "My posts" }, { name: "Favorites" }];
 
   return (
     <>
@@ -65,6 +60,7 @@ const ProfileBottom = () => {
       </div>
 
       <CategoryContent
+        favoritePosters={favoritePosters}
         activeCategory={activeCategory}
         userPosters={userPosters}
         setUserPosters={setUserPosters}
