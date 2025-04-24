@@ -22,6 +22,7 @@ const LoginBlock = ({
   value,
   onChange,
   steps,
+  isLoading,
 }: {
   name: string;
   nameInput: string;
@@ -32,6 +33,7 @@ const LoginBlock = ({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   steps: Step[];
+  isLoading?: boolean;
 }) => {
   return (
     <motion.div
@@ -55,6 +57,7 @@ const LoginBlock = ({
         />
       </div>
       <LoginBlockBottom
+        isLoading={isLoading}
         step={step!}
         backStep={backStep!}
         nextStep={nextStep!}

@@ -9,11 +9,13 @@ const LoginBlockBottom = ({
   backStep,
   nextStep,
   steps,
+  isLoading,
 }: {
   step: number;
   backStep: () => void;
   nextStep: () => void;
   steps: Step[];
+  isLoading?: boolean;
 }) => {
   const pathname = usePathname();
   const isLogin = pathname === "/login";
@@ -30,6 +32,7 @@ const LoginBlockBottom = ({
       )}
       <div className="flex w-full justify-center items-center gap-2 flex-col px-4 mt-2">
         <LoginButtons
+          isLoading={isLoading}
           step={step}
           steps={steps}
           backStep={backStep}

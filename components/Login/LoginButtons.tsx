@@ -7,12 +7,14 @@ const LoginButtons = ({
   backStep,
   steps,
   isLogin,
+  isLoading,
 }: {
   step: number;
   backStep: () => void;
   nextStep: () => void;
   steps: Step[];
   isLogin: boolean;
+  isLoading?: boolean;
 }) => {
   return (
     <div className="flex w-full gap-5">
@@ -36,7 +38,9 @@ const LoginButtons = ({
           {steps && steps.length > 0 && step === steps.length - 1
             ? isLogin
               ? "Log me in"
-              : "Create new account"
+              : isLoading
+                ? "Creating account..."
+                : "Create new account"
             : "Next"}
           <ChevronRight size={20} />
         </div>

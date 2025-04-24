@@ -32,6 +32,7 @@ const steps = [
 
 const MainRegisterClient = () => {
   const [step, setStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [direction, setDirection] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
@@ -65,37 +66,48 @@ const MainRegisterClient = () => {
   };
 
   const handleRegistration = async () => {
-    await authClient.signUp.email(
-      {
-        email: formData.email,
-        password: formData.password,
-        name: formData.name,
-      },
-      {
-        onSuccess: () => {
-          toast("Account created", {
-            description:
-              "Your account has been created. Check your email for a verification link.",
-          });
+    setIsLoading(true);
+    try {
+      await authClient.signUp.email(
+        {
+          email: formData.email,
+          password: formData.password,
+          name: formData.name,
         },
-        onError: (ctx) => {
-          if (ctx.response?.status === 401) {
-            const errorMessage =
-              ctx.error.message ||
-              "User not found. Please check your credentials.";
+        {
+          onSuccess: () => {
+            toast("Account created", {
+              description:
+                "Your account has been created. Check your email for a verification link.",
+            });
+          },
+          onError: (ctx) => {
+            if (ctx.response?.status === 401) {
+              const errorMessage =
+                ctx.error.message ||
+                "User not found. Please check your credentials.";
 
-            toast.error("Login failed", {
-              description: errorMessage,
-            });
-          } else {
-            const errorMessage = ctx.error.message || "Something went wrong";
-            toast.error("Something went wrong", {
-              description: errorMessage,
-            });
-          }
-        },
-      }
-    );
+              toast.error("Login failed", {
+                description: errorMessage,
+              });
+            } else {
+              const errorMessage = ctx.error.message || "Something went wrong";
+              toast.error("Something went wrong", {
+                description: errorMessage,
+              });
+            }
+          },
+        }
+      );
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unexpected error";
+      toast.error("Something went wrong", {
+        description: errorMessage,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -117,6 +129,7 @@ const MainRegisterClient = () => {
             headline={steps[step].headline}
           />
           <LoginBlock
+            isLoading={isLoading}
             nameInput={steps[step].nameInput}
             name={steps[step].name}
             type={steps[step].type}

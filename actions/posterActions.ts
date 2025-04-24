@@ -137,7 +137,6 @@ export async function getUserPosters() {
   }
 
   try {
-    // Načtení posterů vytvořených uživatelem
     const userPosters = await prisma.poster.findMany({
       where: { userId: session.user.id },
       include: {
@@ -147,7 +146,6 @@ export async function getUserPosters() {
       orderBy: { createdAt: "desc" },
     });
 
-    // Načtení oblíbených posterů uživatele
     const favorites = await prisma.favorite.findMany({
       where: { userId: session.user.id },
       include: {
@@ -160,13 +158,11 @@ export async function getUserPosters() {
       },
     });
 
-    // Formátování posterů vytvořených uživatelem
     const formattedUserPosters = userPosters.map((poster) => ({
       ...poster,
       tags: poster.posterCategories.map((pc) => pc.category.name),
     }));
 
-    // Formátování oblíbených posterů
     const formattedFavorites = favorites.map((favorite) => ({
       ...favorite.poster,
       tags: favorite.poster.posterCategories.map((pc) => pc.category.name),

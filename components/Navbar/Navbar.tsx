@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { headers } from "next/headers";
 
 import LoggedInNavbar from "./LoggedInNavbar";
+import ReloadButton from "./ReloadButton";
 const Navbar = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -19,12 +20,7 @@ const Navbar = async () => {
             </li>
           ))}
         </ul>
-        <Link
-          href="/"
-          className="text-2xl absolute -translate-1/2 top-1/2 left-1/2 "
-        >
-          POSTERIO
-        </Link>
+        <ReloadButton />
         {!session ? (
           <Link href="/login">
             <button className="bg-accent px-4 py-2 border cursor-pointer ">

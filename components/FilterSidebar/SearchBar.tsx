@@ -14,6 +14,7 @@ const SearchBar = () => {
         name="what are you looking for?"
         icon={<Search size={20} className="cursor-pointer" />}
         bgColor="#D8D9DC"
+        required={false}
       />
       <FiltersSidebar />
     </form>

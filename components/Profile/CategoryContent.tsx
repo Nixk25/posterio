@@ -131,19 +131,25 @@ const CategoryContent = ({
       <div className="flex gap-5 w-max px-4">
         {filteredPosters.length > 0 ? (
           <FilteredPosters
-            filteredPosters={filteredPosters}
-            selectedPosterId={selectedPosterId}
-            editingPoster={editingPoster}
-            deleteDialog={deleteDialog}
-            updateDialog={updateDialog}
-            handleEditClick={handleEditClick}
-            handleInputChange={handleInputChange}
-            setUpdateDialog={setUpdateDialog}
-            setDeleteDialog={setDeleteDialog}
-            setSelectedPosterId={setSelectedPosterId}
-            setEditingPoster={setEditingPoster}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
+            dataProps={{
+              filteredPosters,
+              selectedPosterId,
+              editingPoster,
+              deleteDialog,
+              updateDialog,
+            }}
+            handlerProps={{
+              handleEditClick,
+              handleInputChange,
+              handleDelete,
+              handleEdit,
+            }}
+            stateSetters={{
+              setUpdateDialog,
+              setDeleteDialog,
+              setSelectedPosterId,
+              setEditingPoster,
+            }}
           />
         ) : (
           <Link

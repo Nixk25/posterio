@@ -9,6 +9,7 @@ const ClashGroteskFont = localFont({
   src: "./fonts/ClashGrotesk-Variable.woff2",
 });
 import { Toaster } from "sonner";
+import { FilterProvider } from "@/context/FilterContext";
 
 export const metadata: Metadata = {
   title: "Posterio",
@@ -22,16 +23,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ViewTransitions>
-      <html lang="en">
-        <body className={` ${ClashGroteskFont.className} antialiased`}>
-          <Toaster richColors />
-          <NavbarServer />
-          <SearchBar />
-          {children}
-          <Footer />
-        </body>
-      </html>
-    </ViewTransitions>
+    <FilterProvider>
+      <ViewTransitions>
+        <html lang="en">
+          <body className={` ${ClashGroteskFont.className} antialiased`}>
+            <Toaster richColors />
+            <NavbarServer />
+            <SearchBar />
+            {children}
+            <Footer />
+          </body>
+        </html>
+      </ViewTransitions>
+    </FilterProvider>
   );
 }

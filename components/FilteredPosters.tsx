@@ -7,40 +7,53 @@ import { PosterType } from "@/app/(pages)/poster/[slug]/page";
 import DeletePoster from "./DeletePoster";
 import EditPoster from "./EditPoster";
 
-interface FilteredPostersProps {
-  filteredPosters: PosterType[];
-  selectedPosterId: string | null;
-  editingPoster: PosterType | null;
-  deleteDialog: boolean;
-  updateDialog: boolean;
-  handleEditClick: (posterId: string) => void;
-  handleInputChange: (
-    field: keyof PosterType,
-    value: string | string[]
-  ) => void;
-  setUpdateDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  setDeleteDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedPosterId: React.Dispatch<React.SetStateAction<string | null>>;
-  setEditingPoster: React.Dispatch<React.SetStateAction<PosterType | null>>;
-  handleDelete: () => Promise<void>;
-  handleEdit: () => Promise<void>;
-}
+type FilteredPostersProps = {
+  dataProps: {
+    filteredPosters: PosterType[];
+    selectedPosterId: string | null;
+    editingPoster: PosterType | null;
+    deleteDialog: boolean;
+    updateDialog: boolean;
+  };
+  handlerProps: {
+    handleEditClick: (posterId: string) => void;
+    handleInputChange: (
+      field: keyof PosterType,
+      value: string | string[]
+    ) => void;
+    handleDelete: () => Promise<void>;
+    handleEdit: () => Promise<void>;
+  };
+  stateSetters: {
+    setUpdateDialog: React.Dispatch<React.SetStateAction<boolean>>;
+    setDeleteDialog: React.Dispatch<React.SetStateAction<boolean>>;
+    setSelectedPosterId: React.Dispatch<React.SetStateAction<string | null>>;
+    setEditingPoster: React.Dispatch<React.SetStateAction<PosterType | null>>;
+  };
+};
 
 const FilteredPosters: React.FC<FilteredPostersProps> = ({
-  filteredPosters,
-  selectedPosterId,
-  editingPoster,
-  deleteDialog,
-  updateDialog,
-  handleEditClick,
-  handleInputChange,
-  setUpdateDialog,
-  setDeleteDialog,
-  setSelectedPosterId,
-  setEditingPoster,
-  handleDelete,
-  handleEdit,
+  dataProps,
+  handlerProps,
+  stateSetters,
 }) => {
+  const {
+    filteredPosters,
+    selectedPosterId,
+    editingPoster,
+    deleteDialog,
+    updateDialog,
+  } = dataProps;
+
+  const { handleEditClick, handleInputChange, handleDelete, handleEdit } =
+    handlerProps;
+
+  const {
+    setUpdateDialog,
+    setDeleteDialog,
+    setSelectedPosterId,
+    setEditingPoster,
+  } = stateSetters;
   return (
     <>
       {filteredPosters.map((poster, i) => (
@@ -66,11 +79,11 @@ const FilteredPosters: React.FC<FilteredPostersProps> = ({
                 ))}
               </div>
             </div>
-            <div className="h-[700px] w-[500px] mx-auto relative">
+            <div className="h-[700px] w-[500px] mx-auto relative overflow-hidden">
               <Image
                 src={poster.imgUrl}
                 alt={poster.title}
-                className="w-full h-full object-cover group-hover:blur-md transition-all duration-300 ease-in-out"
+                className="w-full h-full object-cover group-hover:blur-md  transition-all duration-300 ease-in-out"
                 width={300}
                 height={600}
                 draggable="false"
