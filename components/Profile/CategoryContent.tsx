@@ -150,8 +150,9 @@ const CategoryContent = ({
               setSelectedPosterId,
               setEditingPoster,
             }}
+            isUserPosts={activeCategory === "My posts"}
           />
-        ) : (
+        ) : activeCategory === "My posts" ? (
           <Link
             href="/upload"
             className="h-[300px] text-3xl flex-col flex justify-center"
@@ -160,6 +161,13 @@ const CategoryContent = ({
             <span className="underline hover:text-accent transition-all duration-300 ease-in-out">
               Upload some
             </span>
+          </Link>
+        ) : (
+          <Link
+            href="/"
+            className="h-[300px] text-3xl flex items-center justify-center px-4"
+          >
+            You don&apos;t have any favorites yet
           </Link>
         )}
       </div>

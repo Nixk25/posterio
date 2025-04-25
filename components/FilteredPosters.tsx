@@ -8,6 +8,7 @@ import DeletePoster from "./DeletePoster";
 import EditPoster from "./EditPoster";
 
 type FilteredPostersProps = {
+  isUserPosts: boolean;
   dataProps: {
     filteredPosters: PosterType[];
     selectedPosterId: string | null;
@@ -33,6 +34,7 @@ type FilteredPostersProps = {
 };
 
 const FilteredPosters: React.FC<FilteredPostersProps> = ({
+  isUserPosts,
   dataProps,
   handlerProps,
   stateSetters,
@@ -83,36 +85,38 @@ const FilteredPosters: React.FC<FilteredPostersProps> = ({
               <Image
                 src={poster.imgUrl}
                 alt={poster.title}
-                className="w-full h-full object-cover group-hover:blur-md  transition-all duration-300 ease-in-out"
+                className={`w-full h-full object-cover ${isUserPosts ? "group-hover:blur-md" : ""}  transition-all duration-300 ease-in-out`}
                 width={300}
                 height={600}
                 draggable="false"
                 placeholder="blur"
                 blurDataURL={poster.colors[0]}
               />
-              <div className="absolute top-0 left-0 w-full h-full bg-black group-hover:opacity-70 opacity-0 z-10 transition-all duration-300 ease-in-out">
-                <div className="absolute group-hover:opacity-100 opacity-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-5">
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleEditClick(poster.id!);
-                    }}
-                    className="flex border rounded-full p-4 text-white border-white justify-center items-center hover:text-accent transition-colors duration-300 ease-in-out cursor-pointer hover:border-accent"
-                  >
-                    <Pencil />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setSelectedPosterId(poster.id!);
-                      setDeleteDialog(true);
-                    }}
-                    className="flex border rounded-full p-4 text-white border-white justify-center items-center hover:text-red-400 transition-colors duration-300 ease-in-out cursor-pointer hover:border-red-400"
-                  >
-                    <Trash2 />
-                  </button>
+              {isUserPosts && (
+                <div className="absolute top-0 left-0 w-full h-full bg-black group-hover:opacity-70 opacity-0 z-10 transition-all duration-300 ease-in-out">
+                  <div className="absolute group-hover:opacity-100 opacity-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-5">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleEditClick(poster.id!);
+                      }}
+                      className="flex border rounded-full p-4 text-white border-white justify-center items-center hover:text-accent transition-colors duration-300 ease-in-out cursor-pointer hover:border-accent"
+                    >
+                      <Pencil />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedPosterId(poster.id!);
+                        setDeleteDialog(true);
+                      }}
+                      className="flex border rounded-full p-4 text-white border-white justify-center items-center hover:text-red-400 transition-colors duration-300 ease-in-out cursor-pointer hover:border-red-400"
+                    >
+                      <Trash2 />
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </Link>
           <AnimatePresence>
