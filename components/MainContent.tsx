@@ -114,7 +114,7 @@ const MainContent = () => {
   ]);
 
   return (
-    <main className="relative h-full w-full grid gap-5 grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))] p-4 place-items-center overflow-hidden z-[1] min-h-screen">
+    <main className="relative h-full w-full grid gap-5 min-[450px]:grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))] grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] p-4 place-items-center overflow-hidden z-[1] min-h-screen">
       {isLoading || filterPending ? (
         <Loader />
       ) : postersToShow.length === 0 ? (
@@ -130,10 +130,10 @@ const MainContent = () => {
                 initial={false}
                 animate={
                   clickedIndex === index
-                    ? { scale: 15, zIndex: 50 }
-                    : { scale: 1, zIndex: 1 }
+                    ? { filter: "blur(200px)", scale: 15, zIndex: 50 }
+                    : { filter: "blur(0px)", scale: 1, zIndex: 1 }
                 }
-                transition={{ duration: 0.6, ease: "easeInOut" }}
+                transition={{ duration: 1, ease: "easeInOut" }}
               >
                 <div className="flex justify-between items-center p-2 bg-white">
                   <div className="flex flex-col">

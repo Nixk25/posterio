@@ -165,7 +165,7 @@ const CategoryContent = ({
         ) : (
           <Link
             href="/"
-            className="h-[300px] text-3xl flex items-center justify-center px-4"
+            className="h-[300px] text-xl sm:text-3xl flex items-center justify-center px-4"
           >
             You don&apos;t have any favorites yet
           </Link>

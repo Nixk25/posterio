@@ -80,7 +80,7 @@ const EnterPosterDetails = ({
             initial={{ opacity: 0, filter: "blur(10px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 loadingText"
           >
             Loading...
           </motion.div>
@@ -89,14 +89,14 @@ const EnterPosterDetails = ({
           onSubmit={handleSubmit}
           className="w-full flex justify-center items-center flex-col"
         >
-          <div className="flex w-full px-4 flex-col md:flex-row justify-between  md:py-10 md:h-[720px] gap-10">
+          <div className="flex w-full px-4 flex-col md:flex-row justify-between md:py-10 md:h-[720px] gap-10">
             <UploadLeft
               colors={posterDetails.colors}
               posterDetails={posterDetails}
               setPosterDetails={setPosterDetails}
             />
             <motion.div
-              className="h-[600px] w-[80%] sm:w-[500px] "
+              className="h-[600px] w-full flex justify-center items-center sm:w-[500px] mx-auto "
               animate={{
                 opacity: !isImageLoading ? 1 : 0,
                 filter: !isImageLoading ? "blur(0px)" : "blur(10px)",

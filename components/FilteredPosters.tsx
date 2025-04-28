@@ -64,7 +64,7 @@ const FilteredPosters: React.FC<FilteredPostersProps> = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.5 * (2 + i) }}
           key={poster.id}
-          className="flex flex-col h-full mt-5 mb-10 scroll-snap-start snap-center select-none group relative"
+          className="flex flex-col h-full mt-5 mb-10 scroll-snap-start snap-center select-none group relative max-w-[350px] sm:max-w-[450px]"
         >
           <Link
             href={`/poster/${poster.id}`}
@@ -81,7 +81,7 @@ const FilteredPosters: React.FC<FilteredPostersProps> = ({
                 ))}
               </div>
             </div>
-            <div className="h-[700px] w-[500px] mx-auto relative overflow-hidden">
+            <div className="w-full h-[500px] sm:h-[700px] mx-auto relative overflow-hidden">
               <Image
                 src={poster.imgUrl}
                 alt={poster.title}
