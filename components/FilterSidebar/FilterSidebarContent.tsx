@@ -103,7 +103,7 @@ const FilterSidebarContent = ({
       </div>
       {hasActiveFilters && (
         <div
-          className="flex w-full justify-center border-t cursor-pointer hover:bg-accent transition-all duration-300 ease-in-out items-center"
+          className="flex w-full justify-center border-t cursor-pointer hover:bg-accent transition-all duration-300 ease-in-out items-center min-w-[620px] bg-background z-10"
           onClick={(e) => {
             e.preventDefault();
             fetchFilteredPosters();
