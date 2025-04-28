@@ -1,4 +1,4 @@
-**1. SRS (Software Requirements Specification)**
+# 1. SRS (Software Requirements Specification)
 
 **Název projektu:** Posterio
 
@@ -44,7 +44,7 @@ a objevování ostatních plakátů.
 
 - Pouze formáty JPG, PNG, WEBP.
 
-# ** 2. SDD (Software Design Document) -- Posterio** {#sdd-software-design-document-posterio}
+#  2. SDD (Software Design Document) -- Posterio** {#sdd-software-design-document-posterio}
 
 ## **Architektura**
 
