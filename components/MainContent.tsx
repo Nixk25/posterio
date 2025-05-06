@@ -130,7 +130,7 @@ const MainContent = () => {
                 initial={false}
                 animate={
                   clickedIndex === index
-                    ? { filter: "blur(200px)", scale: 15, zIndex: 50 }
+                    ? { filter: "blur(50px)", scale: 15, zIndex: 50 }
                     : { filter: "blur(0px)", scale: 1, zIndex: 1 }
                 }
                 transition={{ duration: 1, ease: "easeInOut" }}
