@@ -206,7 +206,6 @@ export async function updatePoster(
       return { success: false, error: "Poster not found" };
     }
 
-    // Původní názvy tagů
     const existingTags = existingPoster.posterCategories
       .map((pc) => pc.category.name)
       .sort();

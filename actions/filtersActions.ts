@@ -1,5 +1,4 @@
 "use server";
-
 import prisma from "@/lib/prisma";
 export const getFilterOptions = async () => {
   const categories = await prisma.category.findMany();

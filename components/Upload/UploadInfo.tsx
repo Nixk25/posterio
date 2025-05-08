@@ -51,7 +51,7 @@ const UploadInfo: React.FC<UploadInfoProps> = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (isArrayField && (e.key === "Enter" || e.key === " ")) {
+    if (isArrayField && e.key === "Enter") {
       e.preventDefault();
       addTag(inputValue);
       setInputValue("");
@@ -99,6 +99,7 @@ const UploadInfo: React.FC<UploadInfoProps> = ({
             >
               <span>{tag}</span>
               <button
+                type="button"
                 onClick={() => removeTag(index)}
                 className="ml-2 textxl hover:text-red-400 cursor-pointer"
               >
