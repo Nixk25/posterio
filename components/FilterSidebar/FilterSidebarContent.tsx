@@ -75,7 +75,7 @@ const FilterSidebarContent = ({
       animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
       exit={{ y: "-100%", opacity: 0, filter: "blur(10px)" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-background border absolute top-7 flex-col left-0 z-99999 flex justify-evenly w-full overflow-auto"
+      className="bg-background border absolute top-7 flex-col left-0 z-99999 flex justify-evenly w-full overflow-auto max-h-[350px]"
     >
       <CloseButtonSidebar setShowFilters={setShowFilters} />
       <div className="flex">
@@ -103,7 +103,7 @@ const FilterSidebarContent = ({
       </div>
       {hasActiveFilters && (
         <div
-          className="flex w-full justify-center border-t cursor-pointer hover:bg-accent transition-all duration-300 ease-in-out items-center min-w-[620px] bg-background z-10"
+          className="flex w-full justify-center border-t cursor-pointer hover:bg-accent transition-all duration-300 ease-in-out items-center min-w-[620px] bg-background z-10 "
           onClick={(e) => {
             e.preventDefault();
             fetchFilteredPosters();

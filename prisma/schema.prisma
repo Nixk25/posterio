@@ -71,15 +71,17 @@ model Verification {
 }
 
 model Poster {
-  id          String   @id @default(cuid()) @map("_id")
-  title       String
-  description String?
-  fonts       String[]
-  colors      String[]
-  tools       String[]
-  views       Int      @default(0)
-  socials     String[]
-  imgUrl      String
+  id             String   @id @default(cuid()) @map("_id")
+  title          String
+  description    String?
+  fonts          String[]
+  fontCategories String[]
+  colors         String[]
+  colorGroups    String[]
+  tools          String[]
+  views          Int      @default(0)
+  socials        String[]
+  imgUrl         String
 
   categoryIds String[]
   userId      String
@@ -89,7 +91,7 @@ model Poster {
 
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   posterCategories PosterCategory[]
-  favorites         Favorite[]
+  favorites        Favorite[]
 }
 
 model Category {

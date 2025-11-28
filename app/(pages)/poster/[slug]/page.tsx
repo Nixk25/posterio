@@ -8,6 +8,7 @@ export type PosterType = {
   description: string | null;
   fonts: string[];
   colors: string[];
+  colorGroups?: string[];
   tools: string[];
   views?: number;
   socials?: string[];
@@ -15,6 +16,7 @@ export type PosterType = {
   tags?: string[];
   categoryIds?: string[];
   userId?: string;
+  blurDataURL?: string;
 
   createdAt?: Date;
   updatedAt?: Date;

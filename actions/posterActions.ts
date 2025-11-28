@@ -5,6 +5,9 @@ import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { PosterType } from "@/app/(pages)/poster/[slug]/page";
+import { getPlaiceholder } from "plaiceholder";
+import { getColorGroups } from "@/lib/colorUtils";
+import { getFontCategory } from "@/lib/fontCategories";
 
 export async function createPoster(posterDetails: PosterType) {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -27,13 +30,18 @@ export async function createPoster(posterDetails: PosterType) {
       })
     );
 
+    const colorGroups = getColorGroups(colors);
+    const fontCategories = [...new Set(fonts.map(font => getFontCategory(font)))];
+
     const newPoster = await prisma.poster.create({
       data: {
         title,
         userId: session?.user.id as string,
         description,
         fonts,
+        fontCategories,
         colors,
+        colorGroups,
         tools,
         socials: [],
         views: 0,
@@ -66,10 +74,27 @@ export async function getPosters() {
       orderBy: { createdAt: "desc" },
     });
 
-    const formattedPosters = posters.map((poster) => ({
-      ...poster,
-      tags: poster.posterCategories.map((pc) => pc.category.name),
-    }));
+    const formattedPosters = await Promise.all(
+      posters.map(async (poster) => {
+        let blurDataURL = poster.colors[0] || "#cccccc";
+
+        try {
+          const buffer = await fetch(poster.imgUrl).then(async (res) =>
+            Buffer.from(await res.arrayBuffer())
+          );
+          const { base64 } = await getPlaiceholder(buffer);
+          blurDataURL = base64;
+        } catch (error) {
+          console.error("Error generating blur placeholder:", error);
+        }
+
+        return {
+          ...poster,
+          tags: poster.posterCategories.map((pc) => pc.category.name),
+          blurDataURL,
+        };
+      })
+    );
 
     return { success: true, data: formattedPosters };
   } catch (error) {
@@ -130,7 +155,7 @@ export async function getUserPosters() {
   if (!session?.user?.id) {
     return {
       success: false,
-      error: "Uživatel není přihlášen",
+      error: "User is not logged in",
       posters: [],
       favorites: [],
     };

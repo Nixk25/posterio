@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -19,11 +19,12 @@ const MainContent = () => {
   const [posters, setPosters] = useState<PosterType[]>([]);
   const [likedPosts, setLikedPosts] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const handleClick = (index: number, id: string) => {
     setClickedIndex(index);
     setTimeout(() => {
       router.push(`/poster/${id}`);
-    }, 300);
+    }, 1200);
   };
 
   useEffect(() => {
@@ -113,8 +114,31 @@ const MainContent = () => {
     clearFilters,
   ]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isLoading || filterPending || postersToShow.length === 0) return;
+
+      if (e.key === "Enter") {
+        const focusedCard = cardRefs.current.find(
+          (card) => card === document.activeElement
+        );
+        if (focusedCard) {
+          e.preventDefault();
+          const index = cardRefs.current.indexOf(focusedCard);
+          const poster = postersToShow[index];
+          if (poster?.id) {
+            handleClick(index, poster.id);
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [postersToShow, isLoading, filterPending]);
+
   return (
-    <main className="relative h-full w-full grid gap-5 min-[450px]:grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))] grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] p-4 place-items-center overflow-hidden z-[1] min-h-screen">
+    <main className="relative h-full w-full grid grid-cols-3 gap-0 overflow-hidden z-[1] min-h-screen">
       {isLoading || filterPending ? (
         <Loader />
       ) : postersToShow.length === 0 ? (
@@ -126,16 +150,25 @@ const MainContent = () => {
             postersToShow.map((poster, index) => (
               <motion.div
                 key={index}
-                className="flex flex-col h-[600px] sm:h-[700px] w-[300px] sm:w-[400px] border cursor-pointer origin-center"
-                initial={false}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
+                tabIndex={0}
+                className="flex flex-col first:border-l h-[600px] sm:h-[800px] max-w-[500px] cursor-pointer origin-center focus:outline-none focus:border-3 focus:border-black focus:scale-95 transition-all duration-300 ease-in-out"
+                initial={{ filter: "blur(10px)", opacity: 0 }}
                 animate={
                   clickedIndex === index
-                    ? { filter: "blur(50px)", scale: 15, zIndex: 50 }
-                    : { filter: "blur(0px)", scale: 1, zIndex: 1 }
+                    ? {
+                        filter: "blur(30px)",
+                        scale: 10,
+                        zIndex: 50,
+                        opacity: 1,
+                      }
+                    : { filter: "blur(0px)", scale: 1, zIndex: 1, opacity: 1 }
                 }
                 transition={{ duration: 1, ease: "easeInOut" }}
               >
-                <div className="flex justify-between items-center p-2 bg-white">
+                <div className="flex justify-between items-center p-2 bg-white border-t border-r border-black">
                   <div className="flex flex-col">
                     <h3 className="text-lg font-semibold">{poster.title}</h3>
                     <div className="flex flex-wrap gap-1 mt-1">
@@ -169,7 +202,7 @@ const MainContent = () => {
                   width={300}
                   height={600}
                   placeholder="blur"
-                  blurDataURL={poster.colors[0]}
+                  blurDataURL={poster.blurDataURL || poster.colors[0]}
                 />
               </motion.div>
             ))}

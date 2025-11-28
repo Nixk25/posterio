@@ -5857,7 +5857,9 @@ export namespace Prisma {
     title: number
     description: number
     fonts: number
+    fontCategories: number
     colors: number
+    colorGroups: number
     tools: number
     views: number
     socials: number
@@ -5905,7 +5907,9 @@ export namespace Prisma {
     title?: true
     description?: true
     fonts?: true
+    fontCategories?: true
     colors?: true
+    colorGroups?: true
     tools?: true
     views?: true
     socials?: true
@@ -6008,7 +6012,9 @@ export namespace Prisma {
     title: string
     description: string | null
     fonts: string[]
+    fontCategories: string[]
     colors: string[]
+    colorGroups: string[]
     tools: string[]
     views: number
     socials: string[]
@@ -6043,7 +6049,9 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     fonts?: boolean
+    fontCategories?: boolean
     colors?: boolean
+    colorGroups?: boolean
     tools?: boolean
     views?: boolean
     socials?: boolean
@@ -6065,7 +6073,9 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     fonts?: boolean
+    fontCategories?: boolean
     colors?: boolean
+    colorGroups?: boolean
     tools?: boolean
     views?: boolean
     socials?: boolean
@@ -6076,7 +6086,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PosterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "fonts" | "colors" | "tools" | "views" | "socials" | "imgUrl" | "categoryIds" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["poster"]>
+  export type PosterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "fonts" | "fontCategories" | "colors" | "colorGroups" | "tools" | "views" | "socials" | "imgUrl" | "categoryIds" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["poster"]>
   export type PosterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     posterCategories?: boolean | Poster$posterCategoriesArgs<ExtArgs>
@@ -6096,7 +6106,9 @@ export namespace Prisma {
       title: string
       description: string | null
       fonts: string[]
+      fontCategories: string[]
       colors: string[]
+      colorGroups: string[]
       tools: string[]
       views: number
       socials: string[]
@@ -6504,7 +6516,9 @@ export namespace Prisma {
     readonly title: FieldRef<"Poster", 'String'>
     readonly description: FieldRef<"Poster", 'String'>
     readonly fonts: FieldRef<"Poster", 'String[]'>
+    readonly fontCategories: FieldRef<"Poster", 'String[]'>
     readonly colors: FieldRef<"Poster", 'String[]'>
+    readonly colorGroups: FieldRef<"Poster", 'String[]'>
     readonly tools: FieldRef<"Poster", 'String[]'>
     readonly views: FieldRef<"Poster", 'Int'>
     readonly socials: FieldRef<"Poster", 'String[]'>
@@ -9937,7 +9951,9 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     fonts: 'fonts',
+    fontCategories: 'fontCategories',
     colors: 'colors',
+    colorGroups: 'colorGroups',
     tools: 'tools',
     views: 'views',
     socials: 'socials',
@@ -10397,7 +10413,9 @@ export namespace Prisma {
     title?: StringFilter<"Poster"> | string
     description?: StringNullableFilter<"Poster"> | string | null
     fonts?: StringNullableListFilter<"Poster">
+    fontCategories?: StringNullableListFilter<"Poster">
     colors?: StringNullableListFilter<"Poster">
+    colorGroups?: StringNullableListFilter<"Poster">
     tools?: StringNullableListFilter<"Poster">
     views?: IntFilter<"Poster"> | number
     socials?: StringNullableListFilter<"Poster">
@@ -10416,7 +10434,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     fonts?: SortOrder
+    fontCategories?: SortOrder
     colors?: SortOrder
+    colorGroups?: SortOrder
     tools?: SortOrder
     views?: SortOrder
     socials?: SortOrder
@@ -10438,7 +10458,9 @@ export namespace Prisma {
     title?: StringFilter<"Poster"> | string
     description?: StringNullableFilter<"Poster"> | string | null
     fonts?: StringNullableListFilter<"Poster">
+    fontCategories?: StringNullableListFilter<"Poster">
     colors?: StringNullableListFilter<"Poster">
+    colorGroups?: StringNullableListFilter<"Poster">
     tools?: StringNullableListFilter<"Poster">
     views?: IntFilter<"Poster"> | number
     socials?: StringNullableListFilter<"Poster">
@@ -10457,7 +10479,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     fonts?: SortOrder
+    fontCategories?: SortOrder
     colors?: SortOrder
+    colorGroups?: SortOrder
     tools?: SortOrder
     views?: SortOrder
     socials?: SortOrder
@@ -10481,7 +10505,9 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Poster"> | string
     description?: StringNullableWithAggregatesFilter<"Poster"> | string | null
     fonts?: StringNullableListFilter<"Poster">
+    fontCategories?: StringNullableListFilter<"Poster">
     colors?: StringNullableListFilter<"Poster">
+    colorGroups?: StringNullableListFilter<"Poster">
     tools?: StringNullableListFilter<"Poster">
     views?: IntWithAggregatesFilter<"Poster"> | number
     socials?: StringNullableListFilter<"Poster">
@@ -11000,7 +11026,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -11018,7 +11046,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -11035,7 +11065,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -11052,7 +11084,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -11070,7 +11104,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -11085,7 +11121,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -11099,7 +11137,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -11634,7 +11674,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     fonts?: SortOrder
+    fontCategories?: SortOrder
     colors?: SortOrder
+    colorGroups?: SortOrder
     tools?: SortOrder
     views?: SortOrder
     socials?: SortOrder
@@ -11999,7 +12041,15 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type PosterCreatefontCategoriesInput = {
+    set: string[]
+  }
+
   export type PosterCreatecolorsInput = {
+    set: string[]
+  }
+
+  export type PosterCreatecolorGroupsInput = {
     set: string[]
   }
 
@@ -12054,7 +12104,17 @@ export namespace Prisma {
     push?: string | string[]
   }
 
+  export type PosterUpdatefontCategoriesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type PosterUpdatecolorsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type PosterUpdatecolorGroupsInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -12525,7 +12585,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -12542,7 +12604,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -12673,7 +12737,9 @@ export namespace Prisma {
     title?: StringFilter<"Poster"> | string
     description?: StringNullableFilter<"Poster"> | string | null
     fonts?: StringNullableListFilter<"Poster">
+    fontCategories?: StringNullableListFilter<"Poster">
     colors?: StringNullableListFilter<"Poster">
+    colorGroups?: StringNullableListFilter<"Poster">
     tools?: StringNullableListFilter<"Poster">
     views?: IntFilter<"Poster"> | number
     socials?: StringNullableListFilter<"Poster">
@@ -13089,7 +13155,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -13106,7 +13174,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -13155,7 +13225,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -13171,7 +13243,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -13250,7 +13324,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -13267,7 +13343,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -13344,7 +13422,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -13360,7 +13440,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -13402,7 +13484,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     fonts?: PosterCreatefontsInput | string[]
+    fontCategories?: PosterCreatefontCategoriesInput | string[]
     colors?: PosterCreatecolorsInput | string[]
+    colorGroups?: PosterCreatecolorGroupsInput | string[]
     tools?: PosterCreatetoolsInput | string[]
     views?: number
     socials?: PosterCreatesocialsInput | string[]
@@ -13491,7 +13575,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -13507,7 +13593,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
@@ -13523,7 +13611,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fonts?: PosterUpdatefontsInput | string[]
+    fontCategories?: PosterUpdatefontCategoriesInput | string[]
     colors?: PosterUpdatecolorsInput | string[]
+    colorGroups?: PosterUpdatecolorGroupsInput | string[]
     tools?: PosterUpdatetoolsInput | string[]
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
