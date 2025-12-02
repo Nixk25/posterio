@@ -1,49 +1,40 @@
-import { betterFetch } from "@better-fetch/fetch";
 import { NextResponse, type NextRequest } from "next/server";
-import type { Session } from "@/auth";
 
 const authRoutes = ["/login", "/register"];
-const uploadRoute = "/upload";
-const profileRoute = "/profile";
+const protectedRoutes = ["/upload", "/profile"];
 
 export default async function authMiddleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const isAuthRoute = authRoutes.includes(pathName);
-  const isUploadRoute = pathName === uploadRoute;
-  const isProfileRoute = pathName === profileRoute;
+  const isProtectedRoute = protectedRoutes.includes(pathName);
 
-  const { data: session } = await betterFetch<Session>(
-    "/api/auth/get-session",
-    {
-      baseURL: process.env.BETTER_AUTH_URL,
-      headers: {
-        cookie: request.headers.get("cookie") || "",
-      },
-    }
-  );
+  // Check for session cookie existence (fast, no API call)
+  const sessionCookie = request.cookies.get("better-auth.session_token");
 
-  if (!session) {
-    if (isUploadRoute || isProfileRoute) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    if (isAuthRoute) {
-      return NextResponse.next();
-    }
+  // If no session cookie and trying to access protected route
+  if (!sessionCookie && isProtectedRoute) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (isAuthRoute) {
+  // If has session cookie and trying to access auth routes, redirect to home
+  if (sessionCookie && isAuthRoute) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (isUploadRoute) {
-    return NextResponse.next();
-  }
-
-  // Defaultní pokračování
+  // Allow everything else
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - api routes
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public files (images, etc)
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
+  ],
 };

@@ -10,6 +10,7 @@ const ClashGroteskFont = localFont({
 });
 import { Toaster } from "sonner";
 import { FilterProvider } from "@/context/FilterContext";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Posterio",
@@ -23,18 +24,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <FilterProvider>
-      <ViewTransitions>
-        <html lang="en">
-          <body className={` ${ClashGroteskFont.className} antialiased`}>
-            <Toaster richColors />
-            <NavbarServer />
-            <SearchBar />
-            {children}
-            <Footer />
-          </body>
-        </html>
-      </ViewTransitions>
-    </FilterProvider>
+    <Suspense>
+      <FilterProvider>
+        <ViewTransitions>
+          <html lang="en">
+            <body className={` ${ClashGroteskFont.className} antialiased`}>
+              <Toaster richColors />
+              <NavbarServer />
+              <SearchBar />
+              {children}
+              <Footer />
+            </body>
+          </html>
+        </ViewTransitions>
+      </FilterProvider>
+    </Suspense>
   );
 }

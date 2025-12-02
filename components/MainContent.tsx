@@ -12,8 +12,15 @@ import Loader from "./Loader";
 import { useFilterContext } from "@/context/FilterContext";
 
 const MainContent = () => {
-  const { filteredPosters, isFiltered, filterPending, clearFilters } =
-    useFilterContext();
+  const {
+    filteredPosters,
+    isFiltered,
+    filterPending,
+    clearFilters,
+    searchResults,
+    searchQuery,
+    isSearching,
+  } = useFilterContext();
   const router = useRouter();
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
   const [posters, setPosters] = useState<PosterType[]>([]);
@@ -84,7 +91,12 @@ const MainContent = () => {
       console.error(error);
     }
   };
-  const postersToShow = isFiltered ? filteredPosters : posters;
+  const postersToShow =
+    searchResults.length > 0 || searchQuery
+      ? searchResults
+      : isFiltered
+      ? filteredPosters
+      : posters;
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -138,13 +150,17 @@ const MainContent = () => {
   }, [postersToShow, isLoading, filterPending]);
 
   return (
-    <main className="relative h-full w-full grid grid-cols-3 gap-0 overflow-hidden z-[1] min-h-screen">
-      {isLoading || filterPending ? (
-        <Loader />
-      ) : postersToShow.length === 0 ? (
-        <div>No posters found</div>
-      ) : (
-        <>
+    <main className="relative h-full w-full grid grid-cols-3 gap-0 overflow-hidden z-[1] place-items-center">
+        {isLoading || filterPending || isSearching ? (
+          <div className="col-span-3 flex justify-center items-center w-full">
+            <Loader />
+          </div>
+        ) : postersToShow.length === 0 ? (
+          <div className="col-span-3 flex justify-center items-center w-full min-h-screen">
+            No posters found
+          </div>
+        ) : (
+          <>
           {postersToShow &&
             postersToShow.length > 0 &&
             postersToShow.map((poster, index) => (
@@ -154,7 +170,7 @@ const MainContent = () => {
                   cardRefs.current[index] = el;
                 }}
                 tabIndex={0}
-                className="flex flex-col first:border-l h-[600px] sm:h-[800px] max-w-[500px] cursor-pointer origin-center focus:outline-none focus:border-3 focus:border-black focus:scale-95 transition-all duration-300 ease-in-out"
+                className="flex flex-col first:border-l h-[600px] sm:h-[700px] xl:h-[750px] w-full cursor-pointer origin-center focus:outline-none focus:border-3 focus:border-black focus:scale-95 transition-all duration-300 ease-linear"
                 initial={{ filter: "blur(10px)", opacity: 0 }}
                 animate={
                   clickedIndex === index
@@ -166,7 +182,7 @@ const MainContent = () => {
                       }
                     : { filter: "blur(0px)", scale: 1, zIndex: 1, opacity: 1 }
                 }
-                transition={{ duration: 1, ease: "easeInOut" }}
+                transition={{ duration: 1, ease: "linear" }}
               >
                 <div className="flex justify-between items-center p-2 bg-white border-t border-r border-black">
                   <div className="flex flex-col">
@@ -184,7 +200,7 @@ const MainContent = () => {
                   </div>
                   <span onClick={handleLike(poster.id!)}>
                     <Star
-                      className="text-3xl transition-all duration-300 ease-in-out hover:scale-90 active:scale-150"
+                      className="text-3xl transition-all duration-300 ease-linear hover:scale-90 active:scale-150"
                       fill={
                         likedPosts.includes(poster.id!)
                           ? "#FEF11F"
@@ -199,8 +215,8 @@ const MainContent = () => {
                   src={poster.imgUrl}
                   alt={poster.title}
                   className="w-full h-full object-cover"
-                  width={300}
-                  height={600}
+                  width={500}
+                  height={700}
                   placeholder="blur"
                   blurDataURL={poster.blurDataURL || poster.colors[0]}
                 />

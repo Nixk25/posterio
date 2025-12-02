@@ -8,6 +8,15 @@ import { PosterType } from "@/app/(pages)/poster/[slug]/page";
 import { getPlaiceholder } from "plaiceholder";
 import { getColorGroups } from "@/lib/colorUtils";
 import { getFontCategory } from "@/lib/fontCategories";
+import type { Favorite } from "@/prisma/app/generated/prisma/client";
+
+type GetUserFavoritesResult =
+  | { success: true; favorites: Favorite[] }
+  | { success: false; error: string; favorites: [] };
+
+type GetPostersResult =
+  | { success: true; data: PosterType[] }
+  | { success: false; error: string };
 
 export async function createPoster(posterDetails: PosterType) {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -53,7 +62,10 @@ export async function createPoster(posterDetails: PosterType) {
           })),
         },
       },
-      include: { posterCategories: true },
+      include: {
+        posterCategories: { include: { category: true } },
+        user: { select: { name: true } },
+      },
     });
 
     revalidatePath("/");
@@ -64,7 +76,7 @@ export async function createPoster(posterDetails: PosterType) {
   }
 }
 
-export async function getPosters() {
+export async function getPosters(): Promise<GetPostersResult> {
   try {
     const posters = await prisma.poster.findMany({
       include: {
@@ -306,7 +318,7 @@ export const toggleFavoritePoster = async (posterId: string) => {
   }
 };
 
-export async function getUserFavorites() {
+export async function getUserFavorites(): Promise<GetUserFavoritesResult> {
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session?.user?.id) {

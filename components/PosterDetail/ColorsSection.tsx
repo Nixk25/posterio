@@ -30,7 +30,7 @@ const ColorsSection: React.FC<PosterProps> = ({ poster }) => {
               style={{ backgroundColor: color }}
               className="rounded-full w-full h-full"
             />
-            <div className="absolute bg-white p-2 bottom-[-40px] left-0 opacity-0 group-hover:opacity-100 z-10 text-xs text-gray-700 transition-all duration-300 ease-in-out">
+            <div className="absolute bg-white p-2 bottom-[-40px] left-0 opacity-0 blur-md group-hover:blur-none group-hover:opacity-100 z-10 text-xs text-gray-700 transition-all duration-300 ease-in-out">
               {copiedColor === color ? "Copied" : color}
             </div>
           </div>
