@@ -42,6 +42,17 @@ export async function createPoster(posterDetails: PosterType) {
     const colorGroups = getColorGroups(colors);
     const fontCategories = [...new Set(fonts.map(font => getFontCategory(font)))];
 
+    let blurDataURL: string | null = null;
+    try {
+      const buffer = await fetch(imgUrl).then(async (res) =>
+        Buffer.from(await res.arrayBuffer())
+      );
+      const { base64 } = await getPlaiceholder(buffer);
+      blurDataURL = base64;
+    } catch (error) {
+      console.error("Error generating blur placeholder:", error);
+    }
+
     const newPoster = await prisma.poster.create({
       data: {
         title,
@@ -55,6 +66,7 @@ export async function createPoster(posterDetails: PosterType) {
         socials: [],
         views: 0,
         imgUrl,
+        blurDataURL,
         categoryIds: categories.map((c) => c.id),
         posterCategories: {
           create: categories.map((category) => ({
@@ -76,9 +88,11 @@ export async function createPoster(posterDetails: PosterType) {
   }
 }
 
-export async function getPosters(): Promise<GetPostersResult> {
+export async function getPosters(cursor?: string, limit: number = 9): Promise<GetPostersResult & { nextCursor?: string }> {
   try {
     const posters = await prisma.poster.findMany({
+      take: limit + 1,
+      ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
       include: {
         posterCategories: { include: { category: true } },
         user: { select: { name: true, email: true } },
@@ -86,29 +100,19 @@ export async function getPosters(): Promise<GetPostersResult> {
       orderBy: { createdAt: "desc" },
     });
 
-    const formattedPosters = await Promise.all(
-      posters.map(async (poster) => {
-        let blurDataURL = poster.colors[0] || "#cccccc";
+    let nextCursor: string | undefined;
+    if (posters.length > limit) {
+      const nextItem = posters.pop();
+      nextCursor = nextItem?.id;
+    }
 
-        try {
-          const buffer = await fetch(poster.imgUrl).then(async (res) =>
-            Buffer.from(await res.arrayBuffer())
-          );
-          const { base64 } = await getPlaiceholder(buffer);
-          blurDataURL = base64;
-        } catch (error) {
-          console.error("Error generating blur placeholder:", error);
-        }
+    const formattedPosters = posters.map((poster) => ({
+      ...poster,
+      tags: poster.posterCategories.map((pc) => pc.category.name),
+      blurDataURL: poster.blurDataURL || poster.colors[0] || "#cccccc",
+    }));
 
-        return {
-          ...poster,
-          tags: poster.posterCategories.map((pc) => pc.category.name),
-          blurDataURL,
-        };
-      })
-    );
-
-    return { success: true, data: formattedPosters };
+    return { success: true, data: formattedPosters, nextCursor };
   } catch (error) {
     console.error("Cannot fetch posters:", error);
     return { success: false, error: "Failed to fetch posters" };

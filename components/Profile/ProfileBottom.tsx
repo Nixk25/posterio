@@ -9,9 +9,11 @@ const ProfileBottom = () => {
   const [activeCategory, setActiveCategory] = useState("My posts");
   const [userPosters, setUserPosters] = useState<PosterType[]>([]);
   const [favoritePosters, setFavoritePosters] = useState<PosterType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
+      setIsLoading(true);
       const result = await getUserPosters();
 
       if (result.success) {
@@ -20,6 +22,7 @@ const ProfileBottom = () => {
       } else {
         console.error("Chyba při načítání:", result.error);
       }
+      setIsLoading(false);
     };
 
     fetchUserData();
@@ -59,12 +62,21 @@ const ProfileBottom = () => {
         ))}
       </div>
 
-      <CategoryContent
-        favoritePosters={favoritePosters}
-        activeCategory={activeCategory}
-        userPosters={userPosters}
-        setUserPosters={setUserPosters}
-      />
+      <div className="min-h-[600px]">
+      {isLoading ? (
+        <div className="flex justify-center items-center h-[300px] text-xl">
+          Loading...
+        </div>
+      ) : (
+        <CategoryContent
+          key={activeCategory}
+          favoritePosters={favoritePosters}
+          activeCategory={activeCategory}
+          userPosters={userPosters}
+          setUserPosters={setUserPosters}
+        />
+      )}
+      </div>
     </>
   );
 };

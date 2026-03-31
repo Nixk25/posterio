@@ -108,10 +108,16 @@ export async function searchPosters({ query, filters }: SearchParams) {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
 
+    const formattedResults = results.map((poster) => ({
+      ...poster,
+      tags: poster.posterCategories.map((pc) => pc.category.name),
+      blurDataURL: poster.blurDataURL || poster.colors[0] || "#cccccc",
+    }));
+
     return {
       success: true,
-      data: results,
-      nbHits: results.length,
+      data: formattedResults,
+      nbHits: formattedResults.length,
     };
   } catch (error) {
     console.error("Error searching posters:", error);

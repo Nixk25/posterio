@@ -16,7 +16,7 @@ export type PosterType = {
   tags?: string[];
   categoryIds?: string[];
   userId?: string;
-  blurDataURL?: string;
+  blurDataURL?: string | null;
 
   createdAt?: Date;
   updatedAt?: Date;

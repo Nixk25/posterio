@@ -1,4 +1,4 @@
-import Link from "next/link";
+import TransitionLink from "../TransitionLink";
 import React from "react";
 import { usePathname } from "next/navigation";
 import LoginButtons from "./LoginButtons";
@@ -10,24 +10,44 @@ const LoginBlockBottom = ({
   nextStep,
   steps,
   isLoading,
+  rememberMe,
+  onRememberMeChange,
+  onForgotPassword,
+  forgotPasswordLoading,
 }: {
   step: number;
   backStep: () => void;
   nextStep: () => void;
   steps: Step[];
   isLoading?: boolean;
+  rememberMe?: boolean;
+  onRememberMeChange?: (checked: boolean) => void;
+  onForgotPassword?: () => void;
+  forgotPasswordLoading?: boolean;
 }) => {
   const pathname = usePathname();
   const isLogin = pathname === "/login";
   return (
     <>
-      {isLogin && (
+      {isLogin && step === 0 && (
         <div className="flex text-xs sm:text-base w-full px-4 py-2 justify-between items-center">
           <div className="flex items-center gap-2">
-            <input type="checkbox" className="w-4 h-4" />
+            <input
+              type="checkbox"
+              className="w-4 h-4"
+              checked={rememberMe ?? false}
+              onChange={(e) => onRememberMeChange?.(e.target.checked)}
+            />
             <span>Remember Me</span>
           </div>
-          <span className=" underline cursor-pointer">Forgot password</span>
+          <button
+            type="button"
+            onClick={onForgotPassword}
+            disabled={forgotPasswordLoading}
+            className="underline cursor-pointer disabled:opacity-50"
+          >
+            {forgotPasswordLoading ? "Sending..." : "Forgot password"}
+          </button>
         </div>
       )}
       <div className="flex w-full justify-center items-center gap-2 flex-col px-4 mt-2">
@@ -39,12 +59,12 @@ const LoginBlockBottom = ({
           nextStep={nextStep}
           isLogin={isLogin}
         />
-        <Link
+        <TransitionLink
           href={isLogin ? "/register" : "/login"}
           className="underline cursor-pointer"
         >
           {isLogin ? "Create new profile" : "I already have an account"}
-        </Link>
+        </TransitionLink>
       </div>
     </>
   );

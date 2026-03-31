@@ -3,13 +3,14 @@ import localFont from "next/font/local";
 import "./globals.css";
 import SearchBar from "@/components/FilterSidebar/SearchBar";
 import NavbarServer from "@/components/Navbar/NavbarServer";
-import { ViewTransitions } from "next-view-transitions";
 import Footer from "@/components/Footer/Footer";
 const ClashGroteskFont = localFont({
   src: "./fonts/ClashGrotesk-Variable.woff2",
 });
 import { Toaster } from "sonner";
 import { FilterProvider } from "@/context/FilterContext";
+import { SoundProvider } from "@/context/SoundContext";
+import { TransitionProvider } from "@/context/TransitionContext";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -26,17 +27,19 @@ export default function RootLayout({
   return (
     <Suspense>
       <FilterProvider>
-        <ViewTransitions>
-          <html lang="en">
-            <body className={` ${ClashGroteskFont.className} antialiased`}>
-              <Toaster richColors />
-              <NavbarServer />
-              <SearchBar />
-              {children}
-              <Footer />
-            </body>
-          </html>
-        </ViewTransitions>
+        <SoundProvider>
+            <html lang="en">
+              <body className={` ${ClashGroteskFont.className} antialiased`}>
+                <TransitionProvider>
+                  <Toaster richColors />
+                  <NavbarServer />
+                  <SearchBar />
+                  {children}
+                  <Footer />
+                </TransitionProvider>
+              </body>
+            </html>
+        </SoundProvider>
       </FilterProvider>
     </Suspense>
   );

@@ -9,6 +9,7 @@ import { Vibrant } from "node-vibrant/browser";
 import { PosterDetails, UploadResponse } from "./UploadPage";
 import { toast } from "sonner";
 import { createPoster } from "@/actions/posterActions";
+import { useSound } from "@/context/SoundContext";
 
 const EnterPosterDetails = ({
   posterImage,
@@ -22,6 +23,7 @@ const EnterPosterDetails = ({
   const [isPending, startTransition] = useTransition();
   const [isImageLoading, setIsImageLoading] = useState(true);
   const router = useRouter();
+  const { playSuccess } = useSound();
   const rgbToHex = (rgb: number[]): string => {
     const hex = rgb.map((x) => x.toString(16).padStart(2, "0")).join("");
     return `#${hex}`;
@@ -52,6 +54,7 @@ const EnterPosterDetails = ({
         const result = await createPoster(posterDetails);
 
         if (result.success) {
+          playSuccess();
           toast.success("Poster submitted successfully! 🖼️", {
             description: "Thank you for your work! 🙏",
           });

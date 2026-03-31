@@ -31,6 +31,8 @@ const MainLoginClient = () => {
     email: "",
     password: "",
   });
+  const [rememberMe, setRememberMe] = useState(false);
+  const [forgotPasswordLoading, setForgotPasswordLoading] = useState(false);
 
   const nextStep = () => {
     if (step < steps.length - 1) {
@@ -57,11 +59,32 @@ const MainLoginClient = () => {
     nextStep();
   };
 
+  const handleForgotPassword = async () => {
+    if (!formData.email) {
+      toast.error("Enter your email first");
+      return;
+    }
+    setForgotPasswordLoading(true);
+    try {
+      await authClient.forgetPassword({
+        email: formData.email,
+      });
+      toast.success("Reset link sent", {
+        description: "Check your email for the password reset link.",
+      });
+    } catch {
+      toast.error("Something went wrong");
+    } finally {
+      setForgotPasswordLoading(false);
+    }
+  };
+
   const handleLogin = async () => {
     await authClient.signIn.email(
       {
         email: formData.email,
         password: formData.password,
+        rememberMe,
       },
       {
         onSuccess: () => {
@@ -120,6 +143,10 @@ const MainLoginClient = () => {
             backStep={backStep}
             step={step}
             steps={steps}
+            rememberMe={rememberMe}
+            onRememberMeChange={setRememberMe}
+            onForgotPassword={handleForgotPassword}
+            forgotPasswordLoading={forgotPasswordLoading}
           />
         </motion.div>
       </AnimatePresence>

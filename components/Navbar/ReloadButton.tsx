@@ -1,18 +1,18 @@
 "use client";
 import { useFilterContext } from "@/context/FilterContext";
-import Link from "next/link";
+import TransitionLink from "../TransitionLink";
 import React from "react";
 
 const ReloadButton = () => {
   const { clearFilters } = useFilterContext();
   return (
-    <Link
+    <TransitionLink
       onClick={clearFilters}
       href="/"
-      className="text-2xl absolute -translate-1/2 top-1/2 left-1/2 "
+      className="text-lg sm:text-2xl absolute -translate-1/2 top-1/2 left-1/2 z-10"
     >
       POSTERIO
-    </Link>
+    </TransitionLink>
   );
 };
 

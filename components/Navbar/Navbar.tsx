@@ -1,11 +1,14 @@
 import React from "react";
 import { NAVBAR_LINKS } from "@/app/constants";
-import Link from "next/link";
+import TransitionLink from "../TransitionLink";
 import { auth } from "@/auth";
 import { headers } from "next/headers";
 
 import LoggedInNavbar from "./LoggedInNavbar";
+import MuteButton from "./MuteButton";
 import ReloadButton from "./ReloadButton";
+import MobileMenu from "./MobileMenu";
+
 const Navbar = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -13,23 +16,31 @@ const Navbar = async () => {
   return (
     <header className="w-full p-2 border-t-0 border relative">
       <nav className="flex sm:px-4 justify-between items-center">
-        <ul className="flex items-center gap-4 text-xs sm:text-base  ">
+        {/* Desktop nav links */}
+        <ul className="hidden sm:flex items-center gap-4 text-xs sm:text-base">
           {NAVBAR_LINKS.map((link) => (
             <li key={link.name}>
-              <Link href={link.href}>{link.name}</Link>
+              <TransitionLink href={link.href}>{link.name}</TransitionLink>
             </li>
           ))}
         </ul>
+
+        {/* Mobile hamburger */}
+        <MobileMenu isLoggedIn={!!session} />
+
         <ReloadButton />
-        {!session ? (
-          <Link href="/login">
-            <button className="bg-accent px-4 py-2 border cursor-pointer ">
-              Login
-            </button>
-          </Link>
-        ) : (
-          <LoggedInNavbar />
-        )}
+        <div className="flex items-center gap-2">
+          <MuteButton />
+          {!session ? (
+            <TransitionLink href="/login">
+              <button className="bg-accent px-3 py-1.5 sm:px-4 sm:py-2 border cursor-pointer text-sm sm:text-base">
+                Login
+              </button>
+            </TransitionLink>
+          ) : (
+            <LoggedInNavbar />
+          )}
+        </div>
       </nav>
     </header>
   );

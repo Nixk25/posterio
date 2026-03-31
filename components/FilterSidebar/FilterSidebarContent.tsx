@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import CloseButtonSidebar from "./CloseButtonSidebar";
 import Filter from "./Filter";
 import { getFilterOptions } from "@/actions/filtersActions";
 import { useFilterContext } from "@/context/FilterContext";
@@ -77,7 +76,6 @@ const FilterSidebarContent = ({
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className="bg-background border absolute top-7 flex-col left-0 z-99999 flex justify-evenly w-full overflow-auto max-h-[350px]"
     >
-      <CloseButtonSidebar setShowFilters={setShowFilters} />
       <div className="flex">
         {!availableFilters ? (
           <motion.div

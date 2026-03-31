@@ -173,6 +173,7 @@ exports.Prisma.PosterScalarFieldEnum = {
   views: 'views',
   socials: 'socials',
   imgUrl: 'imgUrl',
+  blurDataURL: 'blurDataURL',
   categoryIds: 'categoryIds',
   userId: 'userId',
   createdAt: 'createdAt',

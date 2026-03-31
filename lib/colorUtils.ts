@@ -85,6 +85,9 @@ export function colorToGroup(hexColor: string): ColorGroup {
 
   const hue = hsl.h;
 
+  // Brown: low saturation, medium lightness, orange-red hue range
+  if (hsl.s < 40 && hsl.l > 15 && hsl.l < 55 && hue >= 10 && hue < 50) return "Brown";
+
   if (hue >= 0 && hue < 15) return "Red";
   if (hue >= 15 && hue < 45) return "Orange";
   if (hue >= 45 && hue < 70) return "Yellow";
@@ -92,10 +95,7 @@ export function colorToGroup(hexColor: string): ColorGroup {
   if (hue >= 165 && hue < 250) return "Blue";
   if (hue >= 250 && hue < 290) return "Purple";
   if (hue >= 290 && hue < 330) return "Pink";
-  if (hue >= 330 && hue < 345) return "Red";
-  if (hue >= 345) return "Red";
-
-  if (hsl.s < 30 && hsl.l > 25 && hsl.l < 60) return "Brown";
+  if (hue >= 330) return "Red";
 
   return "Gray";
 }

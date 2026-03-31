@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { PosterType } from "@/app/(pages)/poster/[slug]/page";
-import Link from "next/link";
+import TransitionLink from "../TransitionLink";
 import { deletePoster, updatePoster } from "@/actions/posterActions";
 import { toast } from "sonner";
 import FilteredPosters from "../FilteredPosters";
@@ -28,12 +28,14 @@ const CategoryContent = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
+  const hasDragged = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
     isDragging.current = true;
+    hasDragged.current = false;
     startX.current = e.pageX - containerRef.current.offsetLeft;
     scrollLeft.current = containerRef.current.scrollLeft;
   };
@@ -45,9 +47,17 @@ const CategoryContent = ({
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging.current || !containerRef.current) return;
     e.preventDefault();
+    hasDragged.current = true;
     const x = e.pageX - containerRef.current.offsetLeft;
     const walk = (x - startX.current) * 1.5;
     containerRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const handleClickCapture = (e: React.MouseEvent) => {
+    if (hasDragged.current) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   };
 
   const handleDelete = async () => {
@@ -127,6 +137,7 @@ const CategoryContent = ({
       onMouseLeave={handleMouseLeaveOrUp}
       onMouseUp={handleMouseLeaveOrUp}
       onMouseMove={handleMouseMove}
+      onClickCapture={handleClickCapture}
     >
       <div className="flex gap-5 w-max px-4">
         {filteredPosters.length > 0 ? (
@@ -153,7 +164,7 @@ const CategoryContent = ({
             isUserPosts={activeCategory === "My posts"}
           />
         ) : activeCategory === "My posts" ? (
-          <Link
+          <TransitionLink
             href="/upload"
             className="h-[300px] text-3xl flex-col flex justify-center"
           >
@@ -161,14 +172,14 @@ const CategoryContent = ({
             <span className="underline hover:text-accent transition-all duration-300 ease-in-out">
               Upload some
             </span>
-          </Link>
+          </TransitionLink>
         ) : (
-          <Link
+          <TransitionLink
             href="/"
             className="h-[300px] text-xl sm:text-3xl flex items-center justify-center px-4"
           >
             You don&apos;t have any favorites yet
-          </Link>
+          </TransitionLink>
         )}
       </div>
     </div>

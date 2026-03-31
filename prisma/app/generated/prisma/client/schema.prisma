@@ -80,6 +80,7 @@ model Poster {
   views          Int      @default(0)
   socials        String[]
   imgUrl         String
+  blurDataURL    String?
 
   categoryIds String[]
   userId      String

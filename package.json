@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build && prisma generate ",
+    "build": "rm -rf .next && prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },

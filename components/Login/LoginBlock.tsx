@@ -23,6 +23,10 @@ const LoginBlock = ({
   onChange,
   steps,
   isLoading,
+  rememberMe,
+  onRememberMeChange,
+  onForgotPassword,
+  forgotPasswordLoading,
 }: {
   name: string;
   nameInput: string;
@@ -34,6 +38,10 @@ const LoginBlock = ({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   steps: Step[];
   isLoading?: boolean;
+  rememberMe?: boolean;
+  onRememberMeChange?: (checked: boolean) => void;
+  onForgotPassword?: () => void;
+  forgotPasswordLoading?: boolean;
 }) => {
   return (
     <motion.div
@@ -62,6 +70,10 @@ const LoginBlock = ({
         backStep={backStep!}
         nextStep={nextStep!}
         steps={steps}
+        rememberMe={rememberMe}
+        onRememberMeChange={onRememberMeChange}
+        onForgotPassword={onForgotPassword}
+        forgotPasswordLoading={forgotPasswordLoading}
       />
     </motion.div>
   );

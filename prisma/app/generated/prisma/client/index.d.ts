@@ -5836,6 +5836,7 @@ export namespace Prisma {
     description: string | null
     views: number | null
     imgUrl: string | null
+    blurDataURL: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5847,6 +5848,7 @@ export namespace Prisma {
     description: string | null
     views: number | null
     imgUrl: string | null
+    blurDataURL: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5864,6 +5866,7 @@ export namespace Prisma {
     views: number
     socials: number
     imgUrl: number
+    blurDataURL: number
     categoryIds: number
     userId: number
     createdAt: number
@@ -5886,6 +5889,7 @@ export namespace Prisma {
     description?: true
     views?: true
     imgUrl?: true
+    blurDataURL?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -5897,6 +5901,7 @@ export namespace Prisma {
     description?: true
     views?: true
     imgUrl?: true
+    blurDataURL?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -5914,6 +5919,7 @@ export namespace Prisma {
     views?: true
     socials?: true
     imgUrl?: true
+    blurDataURL?: true
     categoryIds?: true
     userId?: true
     createdAt?: true
@@ -6019,6 +6025,7 @@ export namespace Prisma {
     views: number
     socials: string[]
     imgUrl: string
+    blurDataURL: string | null
     categoryIds: string[]
     userId: string
     createdAt: Date
@@ -6056,6 +6063,7 @@ export namespace Prisma {
     views?: boolean
     socials?: boolean
     imgUrl?: boolean
+    blurDataURL?: boolean
     categoryIds?: boolean
     userId?: boolean
     createdAt?: boolean
@@ -6080,13 +6088,14 @@ export namespace Prisma {
     views?: boolean
     socials?: boolean
     imgUrl?: boolean
+    blurDataURL?: boolean
     categoryIds?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PosterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "fonts" | "fontCategories" | "colors" | "colorGroups" | "tools" | "views" | "socials" | "imgUrl" | "categoryIds" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["poster"]>
+  export type PosterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "fonts" | "fontCategories" | "colors" | "colorGroups" | "tools" | "views" | "socials" | "imgUrl" | "blurDataURL" | "categoryIds" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["poster"]>
   export type PosterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     posterCategories?: boolean | Poster$posterCategoriesArgs<ExtArgs>
@@ -6113,6 +6122,7 @@ export namespace Prisma {
       views: number
       socials: string[]
       imgUrl: string
+      blurDataURL: string | null
       categoryIds: string[]
       userId: string
       createdAt: Date
@@ -6523,6 +6533,7 @@ export namespace Prisma {
     readonly views: FieldRef<"Poster", 'Int'>
     readonly socials: FieldRef<"Poster", 'String[]'>
     readonly imgUrl: FieldRef<"Poster", 'String'>
+    readonly blurDataURL: FieldRef<"Poster", 'String'>
     readonly categoryIds: FieldRef<"Poster", 'String[]'>
     readonly userId: FieldRef<"Poster", 'String'>
     readonly createdAt: FieldRef<"Poster", 'DateTime'>
@@ -9958,6 +9969,7 @@ export namespace Prisma {
     views: 'views',
     socials: 'socials',
     imgUrl: 'imgUrl',
+    blurDataURL: 'blurDataURL',
     categoryIds: 'categoryIds',
     userId: 'userId',
     createdAt: 'createdAt',
@@ -10420,6 +10432,7 @@ export namespace Prisma {
     views?: IntFilter<"Poster"> | number
     socials?: StringNullableListFilter<"Poster">
     imgUrl?: StringFilter<"Poster"> | string
+    blurDataURL?: StringNullableFilter<"Poster"> | string | null
     categoryIds?: StringNullableListFilter<"Poster">
     userId?: StringFilter<"Poster"> | string
     createdAt?: DateTimeFilter<"Poster"> | Date | string
@@ -10441,6 +10454,7 @@ export namespace Prisma {
     views?: SortOrder
     socials?: SortOrder
     imgUrl?: SortOrder
+    blurDataURL?: SortOrder
     categoryIds?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -10465,6 +10479,7 @@ export namespace Prisma {
     views?: IntFilter<"Poster"> | number
     socials?: StringNullableListFilter<"Poster">
     imgUrl?: StringFilter<"Poster"> | string
+    blurDataURL?: StringNullableFilter<"Poster"> | string | null
     categoryIds?: StringNullableListFilter<"Poster">
     userId?: StringFilter<"Poster"> | string
     createdAt?: DateTimeFilter<"Poster"> | Date | string
@@ -10486,6 +10501,7 @@ export namespace Prisma {
     views?: SortOrder
     socials?: SortOrder
     imgUrl?: SortOrder
+    blurDataURL?: SortOrder
     categoryIds?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -10512,6 +10528,7 @@ export namespace Prisma {
     views?: IntWithAggregatesFilter<"Poster"> | number
     socials?: StringNullableListFilter<"Poster">
     imgUrl?: StringWithAggregatesFilter<"Poster"> | string
+    blurDataURL?: StringNullableWithAggregatesFilter<"Poster"> | string | null
     categoryIds?: StringNullableListFilter<"Poster">
     userId?: StringWithAggregatesFilter<"Poster"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Poster"> | Date | string
@@ -11033,6 +11050,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11053,6 +11071,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     userId: string
     createdAt?: Date | string
@@ -11072,6 +11091,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11091,6 +11111,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11111,6 +11132,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     userId: string
     createdAt?: Date | string
@@ -11128,6 +11150,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11144,6 +11167,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11681,6 +11705,7 @@ export namespace Prisma {
     views?: SortOrder
     socials?: SortOrder
     imgUrl?: SortOrder
+    blurDataURL?: SortOrder
     categoryIds?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -11697,6 +11722,7 @@ export namespace Prisma {
     description?: SortOrder
     views?: SortOrder
     imgUrl?: SortOrder
+    blurDataURL?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11708,6 +11734,7 @@ export namespace Prisma {
     description?: SortOrder
     views?: SortOrder
     imgUrl?: SortOrder
+    blurDataURL?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12592,6 +12619,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12611,6 +12639,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12744,6 +12773,7 @@ export namespace Prisma {
     views?: IntFilter<"Poster"> | number
     socials?: StringNullableListFilter<"Poster">
     imgUrl?: StringFilter<"Poster"> | string
+    blurDataURL?: StringNullableFilter<"Poster"> | string | null
     categoryIds?: StringNullableListFilter<"Poster">
     userId?: StringFilter<"Poster"> | string
     createdAt?: DateTimeFilter<"Poster"> | Date | string
@@ -13162,6 +13192,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13181,6 +13212,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     userId: string
     createdAt?: Date | string
@@ -13232,6 +13264,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13250,6 +13283,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13331,6 +13365,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13350,6 +13385,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     userId: string
     createdAt?: Date | string
@@ -13429,6 +13465,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13447,6 +13484,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13491,6 +13529,7 @@ export namespace Prisma {
     views?: number
     socials?: PosterCreatesocialsInput | string[]
     imgUrl: string
+    blurDataURL?: string | null
     categoryIds?: PosterCreatecategoryIdsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13582,6 +13621,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13600,6 +13640,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13618,6 +13659,7 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     socials?: PosterUpdatesocialsInput | string[]
     imgUrl?: StringFieldUpdateOperationsInput | string
+    blurDataURL?: NullableStringFieldUpdateOperationsInput | string | null
     categoryIds?: PosterUpdatecategoryIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
