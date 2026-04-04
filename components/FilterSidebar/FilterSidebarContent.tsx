@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
+import { X } from "lucide-react";
 import Filter from "./Filter";
 import { getFilterOptions } from "@/actions/filtersActions";
 import { useFilterContext } from "@/context/FilterContext";
@@ -74,41 +75,51 @@ const FilterSidebarContent = ({
       animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
       exit={{ y: "-100%", opacity: 0, filter: "blur(10px)" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-background border absolute top-7 flex-col left-0 z-99999 flex justify-evenly w-full overflow-auto max-h-[350px]"
+      className="bg-background border absolute top-7 flex-col left-0 z-99999 flex w-full max-h-[350px] overscroll-none"
     >
-      <div className="flex">
-        {!availableFilters ? (
-          <motion.div
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="loadingText min-h-[300px] w-full  flex justify-center items-center"
-          >
-            Loading...
-          </motion.div>
-        ) : (
-          Object.entries(availableFilters).map(([key, options]) => (
-            <Filter
-              filter={{
-                title: key,
-                key,
-                options,
-              }}
-              key={key}
-            />
-          ))
-        )}
+      <button
+        type="button"
+        onMouseDown={(e) => e.stopPropagation()}
+        onClick={() => setShowFilters(false)}
+        className="absolute top-2 right-2 cursor-pointer z-10"
+      >
+        <X size={20} />
+      </button>
+      <div className="overflow-auto flex-1 overscroll-none">
+        <div className="flex">
+          {!availableFilters ? (
+            <motion.div
+              initial={{ opacity: 0, filter: "blur(10px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="loadingText min-h-[300px] w-full  flex justify-center items-center"
+            >
+              Loading...
+            </motion.div>
+          ) : (
+            Object.entries(availableFilters).map(([key, options]) => (
+              <Filter
+                filter={{
+                  title: key,
+                  key,
+                  options,
+                }}
+                key={key}
+              />
+            ))
+          )}
+        </div>
       </div>
       {hasActiveFilters && (
         <div
-          className="flex justify-center border cursor-pointer hover:bg-accent transition-all duration-300 ease-in-out items-center min-w-[620px] bg-background z-10 sticky bottom-0 right-0"
+          className="flex justify-center border-t cursor-pointer hover:bg-accent transition-all duration-300 ease-in-out items-center w-full bg-background shrink-0"
           onClick={(e) => {
             e.preventDefault();
             fetchFilteredPosters();
             setShowFilters(false);
           }}
         >
-          <button className="cursor-pointer">Apply filters</button>
+          <button className="cursor-pointer py-2">Apply filters</button>
         </div>
       )}
     </motion.div>
