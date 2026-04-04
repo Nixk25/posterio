@@ -116,7 +116,7 @@ const FilteredPosters: React.FC<FilteredPostersProps> = ({
                     className={`absolute top-0 left-0 w-full h-full bg-black z-10 transition-all duration-300 ease-in-out ${
                       mobileMenuOpen === poster.id
                         ? "opacity-70"
-                        : "opacity-0 sm:group-hover:opacity-70"
+                        : "opacity-0 pointer-events-none sm:pointer-events-auto sm:group-hover:opacity-70"
                     }`}
                     onClick={(e) => {
                       if (mobileMenuOpen === poster.id) {
