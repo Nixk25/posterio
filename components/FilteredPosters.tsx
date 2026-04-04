@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import TransitionLink from "./TransitionLink";
 import PosterImage from "./PosterImage";
-import { Pencil, Trash2 } from "lucide-react";
+import { Ellipsis, Pencil, Trash2 } from "lucide-react";
 import { PosterType } from "@/app/(pages)/poster/[slug]/page";
 import DeletePoster from "./DeletePoster";
 import EditPoster from "./EditPoster";
@@ -56,6 +56,9 @@ const FilteredPosters: React.FC<FilteredPostersProps> = ({
     setSelectedPosterId,
     setEditingPoster,
   } = stateSetters;
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<string | null>(null);
+
   return (
     <>
       {filteredPosters.map((poster, i) => (
@@ -71,15 +74,31 @@ const FilteredPosters: React.FC<FilteredPostersProps> = ({
             className="flex flex-col gap-2 border select-none"
             draggable={false}
           >
-            <div className="flex flex-col p-2">
-              <h3 className="text-lg font-semibold">{poster.title}</h3>
-              <div className="flex flex-wrap gap-1 mt-1">
-                {poster.posterCategories!.map((catObj, idx) => (
-                  <span key={idx} className="bg-accent text-xs px-2 py-0.5">
-                    {catObj.category.name}
-                  </span>
-                ))}
+            <div className="flex justify-between items-center p-2">
+              <div className="flex flex-col">
+                <h3 className="text-lg font-semibold">{poster.title}</h3>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {poster.posterCategories!.map((catObj, idx) => (
+                    <span key={idx} className="bg-accent text-xs px-2 py-0.5">
+                      {catObj.category.name}
+                    </span>
+                  ))}
+                </div>
               </div>
+              {isUserPosts && (
+                <span
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setMobileMenuOpen(
+                      mobileMenuOpen === poster.id ? null : poster.id!
+                    );
+                  }}
+                  className="sm:hidden cursor-pointer"
+                >
+                  <Ellipsis className="text-3xl transition-all duration-300 ease-linear hover:scale-90" />
+                </span>
+              )}
             </div>
             <div className="w-full h-[500px] sm:h-[700px] mx-auto relative overflow-hidden">
               <PosterImage
@@ -92,31 +111,54 @@ const FilteredPosters: React.FC<FilteredPostersProps> = ({
                 blurDataURL={poster.blurDataURL || poster.colors[0]}
               />
               {isUserPosts && (
-                <div className="absolute top-0 left-0 w-full h-full bg-black group-hover:opacity-70 opacity-0 z-10 transition-all duration-300 ease-in-out">
-                  <div className="absolute group-hover:opacity-100 opacity-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-5">
-                    <button
-                      onClick={(e) => {
+                <>
+                  <div
+                    className={`absolute top-0 left-0 w-full h-full bg-black z-10 transition-all duration-300 ease-in-out ${
+                      mobileMenuOpen === poster.id
+                        ? "opacity-70"
+                        : "opacity-0 sm:group-hover:opacity-70"
+                    }`}
+                    onClick={(e) => {
+                      if (mobileMenuOpen === poster.id) {
                         e.preventDefault();
                         e.stopPropagation();
-                        handleEditClick(poster.id!);
-                      }}
-                      className="flex border rounded-full p-4 text-white border-white justify-center items-center hover:text-accent transition-colors duration-300 ease-in-out cursor-pointer hover:border-accent"
+                        setMobileMenuOpen(null);
+                      }
+                    }}
+                  >
+                    <div
+                      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-5 transition-opacity duration-300 ${
+                        mobileMenuOpen === poster.id
+                          ? "opacity-100"
+                          : "opacity-0 sm:group-hover:opacity-100"
+                      }`}
                     >
-                      <Pencil />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setSelectedPosterId(poster.id!);
-                        setDeleteDialog(true);
-                      }}
-                      className="flex border rounded-full p-4 text-white border-white justify-center items-center hover:text-red-400 transition-colors duration-300 ease-in-out cursor-pointer hover:border-red-400"
-                    >
-                      <Trash2 />
-                    </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setMobileMenuOpen(null);
+                          handleEditClick(poster.id!);
+                        }}
+                        className="flex border rounded-full p-4 text-white border-white justify-center items-center hover:text-accent transition-colors duration-300 ease-in-out cursor-pointer hover:border-accent"
+                      >
+                        <Pencil />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setMobileMenuOpen(null);
+                          setSelectedPosterId(poster.id!);
+                          setDeleteDialog(true);
+                        }}
+                        className="flex border rounded-full p-4 text-white border-white justify-center items-center hover:text-red-400 transition-colors duration-300 ease-in-out cursor-pointer hover:border-red-400"
+                      >
+                        <Trash2 />
+                      </button>
+                    </div>
                   </div>
-                </div>
+                </>
               )}
             </div>
           </TransitionLink>
