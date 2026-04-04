@@ -64,7 +64,7 @@ const FilteredPosters: React.FC<FilteredPostersProps> = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: Math.min(0.1 * i, 0.5) }}
           key={poster.id}
-          className="flex flex-col h-full mt-5 mb-10 scroll-snap-start snap-center select-none group relative max-w-[350px] sm:max-w-[450px]"
+          className="flex flex-col h-full mt-5 mb-10 scroll-snap-start snap-center select-none group relative min-w-[300px] max-w-[350px] sm:max-w-[450px]"
         >
           <TransitionLink
             href={`/poster/${poster.id}`}
