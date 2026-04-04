@@ -7,7 +7,6 @@ import Footer from "@/components/Footer/Footer";
 const ClashGroteskFont = localFont({
   src: "./fonts/ClashGrotesk-Variable.woff2",
 });
-import { Toaster } from "sonner";
 import { FilterProvider } from "@/context/FilterContext";
 import { SoundProvider } from "@/context/SoundContext";
 import { TransitionProvider } from "@/context/TransitionContext";
@@ -31,7 +30,6 @@ export default function RootLayout({
             <html lang="en">
               <body className={` ${ClashGroteskFont.className} antialiased`}>
                 <TransitionProvider>
-                  <Toaster richColors />
                   <NavbarServer />
                   <SearchBar />
                   {children}

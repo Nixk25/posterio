@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { Toaster } from "sonner";
 
 type TransitionContextType = {
   navigateTo: (href: string) => void;
@@ -46,6 +47,7 @@ export const TransitionProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   return (
     <TransitionContext.Provider value={{ navigateTo }}>
+      <Toaster richColors />
       <motion.div
         animate={
           phase === "exit"

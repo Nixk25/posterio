@@ -300,7 +300,7 @@ export const toggleFavoritePoster = async (posterId: string) => {
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session?.user?.id) {
-    return { success: false, error: "Uživatel není přihlášen", posters: [] };
+    return { success: false, error: "You must be logged in", posters: [] };
   }
 
   try {
@@ -326,7 +326,7 @@ export async function getUserFavorites(): Promise<GetUserFavoritesResult> {
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session?.user?.id) {
-    return { success: false, error: "Uživatel není přihlášen", favorites: [] };
+    return { success: false, error: "You must be logged in", favorites: [] };
   }
 
   try {
