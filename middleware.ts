@@ -9,7 +9,9 @@ export default async function authMiddleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.includes(pathName);
 
   // Check for session cookie existence (fast, no API call)
-  const sessionCookie = request.cookies.get("better-auth.session_token");
+  const sessionCookie =
+    request.cookies.get("better-auth.session_token") ||
+    request.cookies.get("__Secure-better-auth.session_token");
 
   // If no session cookie and trying to access protected route
   if (!sessionCookie && isProtectedRoute) {
